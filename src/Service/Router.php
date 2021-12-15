@@ -29,7 +29,7 @@ final class Router
         $this->view = new View($this->session);
     }
 
-    public function run(): Response
+   /* public function run(): Response
     {
        
         $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'posts';
@@ -68,5 +68,5 @@ final class Router
         }
 
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
-    }
+    }*/
 }

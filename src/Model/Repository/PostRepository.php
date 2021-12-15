@@ -15,10 +15,10 @@ final class PostRepository
 
     public function findOneBy(array $criteria, array $orderBy = null): ?Post
     {
-        $this->database->prepare('select * from post where id=:id');
+        $this->database->prepare('select * from post where id=:id_post');
         $data = $this->database->execute($criteria);
         
-        return $data === null ? $data : new Post($data['id'], $data['title'], $data['text']);
+        return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
     }
 
     public function findAll(): ?array
@@ -33,7 +33,7 @@ final class PostRepository
         
         $posts = [];
         foreach ($data as $post) {
-            $posts[] = new Post((int)$post['id'], $post['title'], $post['text']);
+            $posts[] = new Post((int)$post['id_post'], $post['title'], $post['content']);
         }
 
         return $posts;
