@@ -9,14 +9,25 @@ use PDO;
 
 
  class Database
-{
-    protected function Connect()
-    {
-        // Read data array
-        $data = require __DIR__ . './connect.php';
+  {  
+    private $host = 'localhost';
+    private $dbname = 'projet_5';
+    private $username = 'root';
+    private $password = 'root';
+    private $port = '8889';
 
-         return new PDO('mysql:host=' . $data['host'] . ';dbname=' . $data['dbname'] . $data['port'] . ';charset=utf8',
-             $data['username'], $data['password'],
-         array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+    private function database(){
+    try {
+
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password, $port);
+  
+    echo "Connecté à $dbname sur $host avec succès.";
+  
+  } 
+  
+  catch (PDOException $e) 
+    {
+  die("Impossible de se connecter à la base de données $dbname :" . $e->getMessage());
     }
+  }
 }
