@@ -13,6 +13,8 @@ final class PostRepository
     {
     }
 
+
+
     public function findOneBy(array $criteria, array $orderBy = null): ?Post
     {
         $this->database->prepare('select * from post where id=:id_post');
@@ -36,6 +38,7 @@ final class PostRepository
             $posts[] = new Post((int)$post['id_post'], $post['title'], $post['content']);
         }
 
-        return $posts;
+        return $post;
     }
 }
+
