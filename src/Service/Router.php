@@ -29,13 +29,13 @@ final class Router
         $this->view = new View($this->session);
     }
 
-   /* public function run(): Response
+    public function run(): Response
     {
        
-        $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'posts';
+        $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'post';
 
        
-        if ($action === 'posts') {
+        if ($action === 'post') {
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
@@ -43,14 +43,14 @@ final class Router
             return $controller->displayAllAction();
 
         
-        } elseif ($action === 'post' && $this->request->hasQuery('id')) {
+        } elseif ($action === 'post' && $this->request->hasQuery('id_post')) {
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
 
             $commentRepo = new CommentRepository($this->database);
 
-            return $controller->displayOneAction((int) $this->request->getQuery('id'), $commentRepo);
+            return $controller->displayOneAction((int) $this->request->getQuery('id_post'), $commentRepo);
 
         
         } elseif ($action === 'login') {
@@ -68,5 +68,5 @@ final class Router
         }
 
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
-    }*/
+    }
 }
