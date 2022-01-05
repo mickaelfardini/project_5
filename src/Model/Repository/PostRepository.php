@@ -17,17 +17,17 @@ final class PostRepository
 
     public function findOneBy(array $criteria, array $orderBy = null): ?Post
     {
-        $this->database->prepare('select * from post where id=:id_post');
-        $data = $this->database->execute($criteria);
-        
-        return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
+       // $this->database->prepare('select * from post where id=:id_post');
+        //$data = $this->database->execute($criteria);
+        $data = null;
+       return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
     }
 
     public function findAll(): ?array
-    {
-        $this->database->prepare('select * from post');
-        $data = $this->database->execute();
-
+    {  var_dump($this->database->getPDO());
+        //$this->database->prepare('select * from post');
+        //$data = $this->database->execute();
+        $data = null;
         if ($data === null) {
             return null;
         }
@@ -41,4 +41,6 @@ final class PostRepository
         return $post;
     }
 }
+
+
 

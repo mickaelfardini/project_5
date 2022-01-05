@@ -8,32 +8,37 @@ namespace App\Service;
 use PDO;
 
 
- class Database
-  {  
-    private $dbname = 'projet_5';
-    private $host = 'localhost';
-    private $username = 'root';
-    private $password = 'root';
-    private $port = '8889';
-    private $pdo;
+class Database
+{
+  //private string $dbname = 'projet_5';
+  //private string $host = 'localhost';
+  //private string $username = 'root';
+  // private string $password = 'root';
+  //private int $port = '8889';
+  private PDO $pdo;
 
-    public function __construct(string $dbname, string $host, string $username ,string $password, string $port)
-    {
-      $this->dbname = $dbname;
-      $this->host = $host;
-      $this->username = $username;
-      $this->password = $password;
-      $this->port = $port;
+  public function __construct(private string $dbname, private string $host, private string $username, private string $password, private int $port)
+  {
+    //$this->dbname = $dbname;
+    //$this->host = $host;
+    //$this->username = $username;
+    //$this->password = $password;
+    //$this->port = $port;
+    try {
+     // $this->pdo = new PDO("mysql:host={$this->host},dbname={$this->dbname};chartset=utf8", $this->username, $this->password);
+      $this->pdo = new PDO("mysql:host=localhost;port=8889;dbname=projet_5;chartset=utf8", 'root', 'root');
+    } catch (\Exception $e) {
+      var_dump('error');
+      throw $e;
     }
+  }
 
-    public function getPDO():PDO
-    {
-      if ($this->pdo === null){
-          $this->pdo = $this->pdo = new PDO ("mysql:dbname={$this->dbname};host={$this->host}",$this->username,$this->password,$this->port);
-      }
-    
+  public function getPDO(): PDO
+  {
+   
+
     return $this->pdo;
-}
+  }
 }
 
 /* PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
