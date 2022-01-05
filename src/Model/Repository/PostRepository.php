@@ -23,7 +23,7 @@ final class PostRepository
        return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
     }
 
-    public function findAll(): ?array
+   /* public function findAll(): ?array
     {  var_dump($this->database->getPDO());
         //$this->database->prepare('select * from post');
         //$data = $this->database->execute();
@@ -39,6 +39,20 @@ final class PostRepository
         }
 
         return $post;
+    }
+   public function getPosts()
+    {
+        $this->database->query('SELECT * FROM post ORDER BY creation_at DESC LIMIT 0,3');
+
+
+    }*/
+    public function findAll()
+    {
+        $req = $this->database->query('SELECT * FROM category ORDER BY created_at DESC LIMIT 0, 5');
+
+        $req->execute();
+
+        return $req->fetchAll();
     }
 }
 
