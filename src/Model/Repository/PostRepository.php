@@ -6,13 +6,16 @@ namespace App\Model\Repository;
 
 use App\Model\Entity\Post;
 use App\Service\Database;
+use PDO;
 
 final class PostRepository
-{
-    public function __construct(private Database $database)
-    {
-    }
+{   
+    private PDO $databaseConnection;
 
+    public function __construct(Database $database)
+    {
+        $this->databaseConnection = $database->getPDO();
+    }
 
 
     public function findOneBy(array $criteria, array $orderBy = null): ?Post
@@ -23,38 +26,36 @@ final class PostRepository
        return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
     }
 
-   /* public function findAll(): ?array
-    {  var_dump($this->database->getPDO());
-        //$this->database->prepare('select * from post');
-        //$data = $this->database->execute();
-        $data = null;
-        if ($data === null) {
+    public function findAll(): ?array
+    {
+        $postData = [];
+        //$this->databaseConnection->getPDO();
+        $req = $this->databaseConnection->prepare('SELECT * FROM post ');
+        $req->execute();
+        $postData = $req->fetchAll();
+       
+        if (count($postData)  === 0 ) {
             return null;
         }
 
         
         $posts = [];
-        foreach ($data as $post) {
+        foreach ($postData as $post) {
             $posts[] = new Post((int)$post['id_post'], $post['title'], $post['content']);
         }
-
-        return $post;
+        return $posts;
     }
-   public function getPosts()
-    {
-        $this->database->query('SELECT * FROM post ORDER BY creation_at DESC LIMIT 0,3');
+   /*public function getPosts()
+    {   $sql ="SELECT * FROM post ORDER BY creation_at "
+        $stmt = $this->connect()->query($sql);
+        while($row=$stmt->fetch()){
+            echo $row ['post'];
+        }
+     */   
 
-
-    }*/
-    public function findAll()
-    {
-        $req = $this->database->query('SELECT * FROM category ORDER BY created_at DESC LIMIT 0, 5');
-
-        $req->execute();
-
-        return $req->fetchAll();
     }
-}
+ 
+
 
 
 
