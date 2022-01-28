@@ -24,7 +24,7 @@ final class Router
     public function __construct(private Request $request)
     {
         
-        $this->database = new Database('projet_5','localhost','root','root',8889);
+        $this->database = new Database('projet_5','localhost','root','root',3306);
         
         $this->session = new Session();
         $this->view = new View($this->session);
