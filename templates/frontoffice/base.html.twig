@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="fr">
     <head>
         <meta charset="utf-8">
@@ -6,52 +7,115 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="css/style.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/68f4d8e92b.js" crossorigin="anonymous"></script>
     </head>
 
     <body>
+
         <!-- Navigation -->
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-                <a class="navbar-brand" href="#">SAHED Nacéra</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Acceuil </a>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3">
+            <img src="/assets/favicon/favicon.jpg" width="50" height="50" class="d-inline-block align-top" >
+            <a class="navbar-brand" href="#">SAHED Nacéra</a> 
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item {% if url =='accueil' %} active {% endif %}">
+                    <a class="nav-link" href="/">Accueil</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=posts">Articles</a>
-                    </li>
-                    <li>
-                        {% if session.user %}
-                         <strong>{{ session.user.pseudo }}</strong>
-                         {{ session.user.email }}
-                        <a class="nav-link" href="index.php?action=logout">se déconnecter</a><br>
-                        {% else %}
-                        <a class="nav-link" href="index.php?action=login">se connecter</a><br>
-                        {% endif %}
-                    </li>
-                    <li>                
-                        <a class="nav-link" href="index.php?action=signup"> s'inscrire</a><br>
-                    </li>
+                     <li class="nav-item {% if url == 'Posts' %} active {% endif %}">
+                     <a class="nav-link" href="/posts">Posts</a>
+                     </li>
+                </ul>
+            </div>
         </nav>
 
         <!-- Page Header -->
         <header>            
-            <h1>Phrase d'accroche</h1>
+            <h1>Apprenez à apprendre chaque jour avec nos posts.</h1>
         </header>
 
         <main>            
-            {% for message in flashes %} 
-                <h2 class="danger"> {{ message }} </h2>
-            {% endfor %}
-            {% block content %}{% endblock %}
-          <a href="">CV</a><br>
-          
+         {% block content %}
         <article>
         <h2>{{ post.title }}</h2>
         <p>{{ post.text }}</p>
         </article>
+        <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> CV</a><br>
+
         </main>
+        {% endblock %}
+
+       <!-- Contact form -->
+
+        <section class="mb-4">
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Nous contacter</h2>
+            <p class="text-center w-responsive mx-auto mb-5">Vous avez des questions? N'hésitez surtout pas à nous contacter . Nous reviendrons vers vous dès que possible.</p>
+        <div class="row">
+        <div class="col-md-9 mb-md-0 mb-5">
+            <form id="contact-form" name="contact-form" action="" method="POST">
+               
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <input type="text" id="name" name="name" class="form-control">
+                            <label for="name" class="">Nom</label>
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-6">
+                        <div class="md-form mb-0">
+                            <input type="text" id="email" name="email" class="form-control">
+                            <label for="email" class="">Email</label>
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form mb-0">
+                            <input type="text" id="subject" name="subject" class="form-control">
+                            <label for="subject" class="">Objet</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="md-form">
+                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
+                            <label for="message">Votre message</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="text-center text-md-left">
+                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+            </div>
+            <div class="status"></div>
+        </div>
         
+        <div class="col-md-3 text-center">
+            <ul class="list-unstyled mb-0">
+                <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                    <p>50 rue Marie Curie , 75011 Paris</p>
+                </li>
+
+                <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                    <p> 01 23 67 89 60</p>
+                </li>
+
+                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                    <p>contact@blog.com</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
         <footer class="footer text-center">
             <h3>Copyright Toto</h3>
         </footer>      
@@ -61,4 +125,3 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>  
     </body>
-</html>
