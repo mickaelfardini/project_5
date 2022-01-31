@@ -1,14 +1,18 @@
 {% extends "/frontoffice/base.html.twig" %}
 
+{% block stylesheet %} 
+<link href="/assets/css/style.css" rel="stylesheet">
+{% endblock %}
+
 {% block title %}Tous les posts{% endblock %}
 
 {% block content %} 
-    <h2>Tous les posts</h2>
+    <h2 id="postTitle">Nos posts</h2>
     {% for post in posts %}
-        <article>
-            <h2>title = {{ post.title }}</h2>
-            <p>text = {{ post.text}}</p>
-            <p>id = {{ post.id}}</p>
+        <article id="postContent">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.text}}</p>
+            <p>{{ post.subtitle}}</p>
             <a href="index.php?action=post&id={{ post.id}}">Lire le post</a>
             <hr>
         </article>

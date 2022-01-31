@@ -5,8 +5,8 @@
         <meta charset="utf-8">
         <title>Blog {% block title %}{% endblock %}</title>
         <!-- Bootstrap CSS -->
+        <link href="/assets/css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/68f4d8e92b.js" crossorigin="anonymous"></script>
     </head>
 
@@ -14,8 +14,8 @@
 
         <!-- Navigation -->
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm p-3">
-            <img src="/assets/favicon/favicon.jpg" width="50" height="50" class="d-inline-block align-top" >
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3" id="nav">
+            <img src="/assets/favicon/favicon.jpg" width="50" height="50" class="d-inline-block align-top" id="logo" >
             <a class="navbar-brand" href="#">SAHED Nacéra</a> 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -39,9 +39,10 @@
 
         <main>            
          {% block content %}
-        <article>
+        <article id="post" >
         <h2>{{ post.title }}</h2>
         <p>{{ post.text }}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
         </article>
         <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> CV</a><br>
 
@@ -93,7 +94,7 @@
             </form>
 
             <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Send</a>
+                <a class="btn" id="btn" onclick="document.getElementById('contact-form').submit();">Soumettre</a>
             </div>
             <div class="status"></div>
         </div>
@@ -116,8 +117,12 @@
     </div>
 </section>
 
-        <footer class="footer text-center">
-            <h3>Copyright Toto</h3>
+        <footer class="footer text-center" id="footer">
+             <span class="text-theme-primary">Projet 5 parcours développeur d'application PHP/Symfony chez OpenClassrooms.</span>
+                    <br>
+                    <a class="btn text-theme-primary mb-1" href="https://github.com/Nsahed"><i class="fab fa-github"></i> Dépôt Github</a>
+                    <a class="btn  text-theme-primary mb-1" href="https://www.linkedin.com/in/nacerasahed"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+            <h3>Copyright Sahed Nacera</h3>
         </footer>      
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
