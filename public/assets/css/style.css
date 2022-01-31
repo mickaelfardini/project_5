@@ -1,0 +1,50 @@
+.danger {
+    color: red ;
+}
+
+#nav {
+    background-color: #F8F9F9 ;
+}
+
+#logo {
+    margin-left: 25px ;
+    margin-right: 50px ;
+}
+
+h1{
+    padding-top : 10px ;
+    text-align: center ;
+}
+
+#postTitle{
+    text-align: center ;
+}
+
+#postContent{
+    text-align: center;
+    background-color: rgb(235, 235, 235);
+    block-size: 75% border-box;
+    font-size: 14px;
+    width: 40%;
+    margin: auto;
+    
+}
+
+#contact-form{
+    background-color: #F8F9F9;
+    width: 60% ;
+    border: solid rgba(209, 209, 209, 0.89);
+    padding: 10px 10px 10px 5px ;
+    margin-left: auto;
+}
+
+#btn {
+    border: solid black;
+    background-color: #000000;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    width: 20%;
+    margin-left: 50%;
+}

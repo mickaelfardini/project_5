@@ -15,8 +15,8 @@ final class UserRepository
 
     public function findOneBy(array $criteria, array $orderBy = null): ?User
     {
-        $this->database->prepare('select * from user where email=:email');
-        $data = $this->database->execute($criteria);
+        $this->pdo->prepare('select * from user where email=:email');
+        $data = $this->pdo->execute($criteria);
 
        
         return $data === null ? null : new user((int)$data['id'], $data['pseudo'], $data['email'], $data['password']);
