@@ -40,7 +40,7 @@ final class Router
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
 
-            return $controller->displayAllAction();
+            return $controller->displayAllAction($this->request);
 
         
         } elseif ($action === 'post' && $this->request->hasQuery('id_post')) {

@@ -16,6 +16,7 @@ final class View
     {
         $loader = new FilesystemLoader('../templates');
         $this->twig = new Environment($loader);
+
     }
 
     public function render(array $data): string
@@ -24,5 +25,11 @@ final class View
         $data['data']['flashes'] = $this->session->getFlashes();
 
         return $this->twig->render("frontoffice/${data['template']}.html.twig", $data['data']);
+    }
+
+    
+    public function homePage( $post)
+    {  
+       return $this->render("frontoffice/home.html.twig",$post ['post']);
     }
 }
