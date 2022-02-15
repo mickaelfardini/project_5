@@ -1,26 +1,21 @@
 <?php
 
-    if(isset( $_POST['name']))
-    $name = $_POST['name'];
-    if(isset( $_POST['email']))
-    $email = $_POST['email'];
+const ERROR_REQUIRED = 'Veuillez renseigner ce champ';
+const ERROR_LENGTH = 'Le champ doit faire entre 2 et 1° caractères';
+const ERROR_EMAIL = "L'email n'est pas valide";
 
-if ($name === ''){
-echo "Name cannot be empty.";
-die();
-}
-if ($email === ''){
-echo "Email cannot be empty.";
-die();
-} else {
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
-echo "Email format invalid.";
-die();
-}
-}
-$content="From: $name \nEmail: $email \nMessage: $message";
-$recipient = "youremail@here.com";
-$mailheader = "From: $email \r\n";
-mail($recipient, $subject, $content, $mailheader) or die("Error!");
-echo "Email sent!";
-?>
+$errors = [
+    'firstname' => '',
+    'email' => ''
+];
+
+$_POST = filter_input_array(INPUT_POST,[
+    'name' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+    'email' => FILTER_SANITIZE_EMAIL,
+    'subject' => FILTER_SANITIZE_FULL_SPECIAL_CHARS, 
+    'message' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+]);
+
+$firstname = $_POST['firsname']??'';
+$email =$POST['email']??'';
+
