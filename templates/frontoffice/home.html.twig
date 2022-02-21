@@ -1,12 +1,12 @@
 {% extends "/frontoffice/base.html.twig" %}
-   {% block content %}
+    {% block title %}
 <!-- Page Header -->
         <header>            
             <h1>Apprenez à apprendre chaque jour avec nos posts.</h1>
         </header>
-    {{render (controller('Projet_5\src\Controller\Frontoffice\PostController.php::homePage'))}}
         <main>            
-      
+    {% endblock title %}  
+    {% block all_posts %}
         <article id="post" >
         <h2>{{ post.title }}</h2>
         <p>{{ post.text }}</p>
@@ -15,10 +15,10 @@
         <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> CV</a><br>
       
         </main>
-       
+      
 
 <!-- Contact form -->
-
+    {% block formular %} 
         <section class="mb-4">
             <h2 class="h1-responsive font-weight-bold text-center my-4">Nous contacter</h2>
             <p class="text-center w-responsive mx-auto mb-5">Vous avez des questions? N'hésitez surtout pas à nous contacter . Nous reviendrons vers vous dès que possible.</p>
@@ -66,7 +66,8 @@
             </div>
             <div class="status"></div>
         </div>
-        
+    {% endblock formular %} 
+    {% block contact %} 
         <div class="col-md-3 text-center">
             <ul class="list-unstyled mb-0">
                 <li><i class="fas fa-map-marker-alt fa-2x"></i>
@@ -84,4 +85,5 @@
         </div>
     </div>
 </section>
-  {% endblock %}
+    {% endblock contact %} 
+  {% endblock %}  

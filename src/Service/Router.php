@@ -6,6 +6,7 @@ namespace  App\Service;
 
 use App\Controller\Frontoffice\PostController;
 use App\Controller\Frontoffice\UserController;
+use App\Controller\Frontoffice\HomeController;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
 use App\Model\Repository\UserRepository;
@@ -24,7 +25,7 @@ final class Router
     public function __construct(private Request $request)
     {
         
-        $this->database = new Database('projet_5','localhost','root','root',3306);
+        $this->database = new Database('projet_5','localhost','root','',3306);
         
         $this->session = new Session();
         $this->view = new View($this->session);
@@ -32,7 +33,7 @@ final class Router
 
     public function run(): Response
     {
-        $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'post';
+        $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'home';
       
        
         if ($action === 'post') {
@@ -42,7 +43,14 @@ final class Router
 
             return $controller->displayAllAction($this->request);
 
-        
+        } elseif ($action === 'home') {
+            
+                $postRepo = new PostRepository($this->database);
+                $controller = new HomeController($postRepo, $this->view);
+    
+                return $controller->homeAction($this->request);
+    
+            
         } elseif ($action === 'post' && $this->request->hasQuery('id_post')) {
             
             $postRepo = new PostRepository($this->database);
