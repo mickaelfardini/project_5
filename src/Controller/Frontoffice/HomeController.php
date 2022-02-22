@@ -9,6 +9,7 @@ use App\Service\Http\Response;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
 use App\Service\Http\Request;
+
 final class HomeController
 {
     public function __construct(private PostRepository $postRepository, private View $view)
@@ -29,6 +30,8 @@ final class HomeController
         return new Response($this->view->render([
             'template' => 'home',
             'data' => ['posts' => $posts],
+            'form' => [''],
+
         ]));
     }
-}
+}  
