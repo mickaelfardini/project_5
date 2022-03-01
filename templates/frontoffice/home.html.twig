@@ -7,16 +7,15 @@
         <main>            
     {% endblock title %}  
     {% block all_posts %}
+    {% for post in posts %}
         <article id="post" >
         <h2>{{ post.title }}</h2>
         <p>{{ post.text }}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <a href="Projet_5\templates\frontoffice\post.html.twig" class="btn btn-primary">Go somewhere</a>
         </article>
+    {% endfor %}
         <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> CV</a><br>
-      
-        </main>
-      
-
+       
 <!-- Contact form -->
     {% block formular %} 
         <section class="mb-4">

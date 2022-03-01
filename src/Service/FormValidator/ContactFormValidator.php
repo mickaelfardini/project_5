@@ -41,23 +41,38 @@ namespace  App\Service\FormValidator;
 
 use App\Service\Http\Request;
 use App\Service\Http\Session\Session;
-use App\Model\Repository\UserRepository;
+
 
 
 
 final class ContactFormValidator
-{
+{   
+    private $fields = [];
     private $errorMessage = "Il y a des erreurs dans votre formulaire";
     private $successMessage = "Le formulaire a bien été soumis";
-    
-    public function __construct(private Request $request)
+    private function validatedName(string $name ): bool
     {
-        $this->request->getAllRequest();
+        if ( $name === '###'){
+            return false;
+        }
+        return true;
+    }
+
+    public function __construct(private Request $request, private Session $session)
+    {
+        $this->fields = $this->request->getAllRequest();
     }
 
     public function isValid(): bool
     {
-        if ($this->infoUser === null) {
+        var_dump ($this->fields);
+        if ( !$this->validatedName($this->fields['lastname'])){
+            $this->session->addFlashes('error','Le nom nest pas valide');
+        }
+        if ( !$this->validatedName($this->fields['firstname'])){
+            $this->session->addFlashes('error','Le prénom nest pas valide');
+        }
+       /* if ($this->infoUser === null) {
             return false;
         }
 
@@ -68,7 +83,8 @@ final class ContactFormValidator
         }
 
         $this->session->set('user', $user);
+        */
 
-        return true;
+       // return new Response($this->view->render(['home']));
     }
 }

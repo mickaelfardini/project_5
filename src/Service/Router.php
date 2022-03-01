@@ -10,6 +10,7 @@ use App\Controller\Frontoffice\HomeController;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
 use App\Model\Repository\UserRepository;
+use App\Service\FormValidator\ContactFormValidator;
 use App\Service\Http\Request;
 use App\Service\Http\Response;
 use App\Service\Http\Session\Session;
@@ -35,8 +36,23 @@ final class Router
     {
         $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'home';
       
-       
-        if ($action === 'post') {
+        if ($action === 'home') {
+            
+            $postRepo = new PostRepository($this->database);
+            $contactformvalidator = new ContactFormValidator($this->request,$this->session);
+            $controller = new HomeController($postRepo, $this->view);
+            
+
+            return $controller->homeAction($this->request,$contactformvalidator);
+
+        } elseif ($action === 'post') {
+            
+            $postRepo = new PostRepository($this->database);
+            $controller = new PostController($postRepo, $this->view);
+
+            return $controller->displayAllAction($this->request);
+    
+      /*  if ($action === 'post') {
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
@@ -46,11 +62,13 @@ final class Router
         } elseif ($action === 'home') {
             
                 $postRepo = new PostRepository($this->database);
+                $contactformvalidator = new ContactFormValidator($this->request,$this->session);
                 $controller = new HomeController($postRepo, $this->view);
+                
     
-                return $controller->homeAction($this->request);
+                return $controller->homeAction($this->request,$contactformvalidator);
     
-            
+            */
         } elseif ($action === 'listpost') {
             
             $postRepo = new PostRepository($this->database);
