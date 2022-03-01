@@ -6,9 +6,11 @@ namespace  App\Service;
 
 use App\Controller\Frontoffice\PostController;
 use App\Controller\Frontoffice\UserController;
+use App\Controller\Frontoffice\HomeController;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
 use App\Model\Repository\UserRepository;
+use App\Service\FormValidator\ContactFormValidator;
 use App\Service\Http\Request;
 use App\Service\Http\Response;
 use App\Service\Http\Session\Session;
@@ -24,7 +26,7 @@ final class Router
     public function __construct(private Request $request)
     {
         
-        $this->database = new Database('projet_5','localhost','root','root',3306);
+        $this->database = new Database('projet_5','localhost','root','',3306);
         
         $this->session = new Session();
         $this->view = new View($this->session);
@@ -32,17 +34,48 @@ final class Router
 
     public function run(): Response
     {
-        $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'post';
+        $action = $this->request->hasQuery('action') ? $this->request->getQuery('action') : 'home';
       
-       
-        if ($action === 'post') {
+        if ($action === 'home') {
+            
+            $postRepo = new PostRepository($this->database);
+            $contactformvalidator = new ContactFormValidator($this->request,$this->session);
+            $controller = new HomeController($postRepo, $this->view);
+            
+
+            return $controller->homeAction($this->request,$contactformvalidator);
+
+        } elseif ($action === 'post') {
+            
+            $postRepo = new PostRepository($this->database);
+            $controller = new PostController($postRepo, $this->view);
+
+            return $controller->displayAllAction($this->request);
+    
+      /*  if ($action === 'post') {
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
 
             return $controller->displayAllAction($this->request);
 
-        
+        } elseif ($action === 'home') {
+            
+                $postRepo = new PostRepository($this->database);
+                $contactformvalidator = new ContactFormValidator($this->request,$this->session);
+                $controller = new HomeController($postRepo, $this->view);
+                
+    
+                return $controller->homeAction($this->request,$contactformvalidator);
+    
+            */
+        } elseif ($action === 'listpost') {
+            
+            $postRepo = new PostRepository($this->database);
+            $controller = new PostController($postRepo, $this->view);
+
+            return $controller->displayAllAction($this->request);
+
         } elseif ($action === 'post' && $this->request->hasQuery('id_post')) {
             
             $postRepo = new PostRepository($this->database);

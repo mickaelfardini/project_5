@@ -27,9 +27,4 @@ final class View
         return $this->twig->render("frontoffice/${data['template']}.html.twig", $data['data']);
     }
 
-    
-    public function homePage( $post)
-    {  
-       return $this->render("frontoffice/home.html.twig",$post ['post']);
-    }
 }

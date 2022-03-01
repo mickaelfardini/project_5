@@ -3,11 +3,13 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>Blog {% block title %}{% endblock %}</title>
+        <title>Blog </title>
+        {% block title %}{% endblock title %}
         <!-- Bootstrap CSS -->
         <link href="/assets/css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://kit.fontawesome.com/68f4d8e92b.js" crossorigin="anonymous"></script>
+        <link rel="icon" href="/assets/favicon/favicon.jpg" />
     </head>
 
     <body>
@@ -22,16 +24,21 @@
     </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                  <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if url =='accueil' %} active {% endif %}">
+                    <li class="nav-item {% if url =='home' %} active {% endif %}">
                     <a class="nav-link" href="/">Accueil</a>
                     </li>
-                     <li class="nav-item {% if url == 'Posts' %} active {% endif %}">
+                     <li class="nav-item {% if url == 'post' %} active {% endif %}">
                      <a class="nav-link" href="/posts">Posts</a>
                      </li>
                 </ul>
             </div>
         </nav>
-
+    
+    {% block content %}    
+    {% block all_posts %}
+    {% endblock all_posts  %}
+    {% block contact %}
+    {% endblock contact %}
       <!-- Footer --> 
 
         <footer class="footer text-center" id="footer">
@@ -39,8 +46,10 @@
                     <br>
                     <a class="btn text-theme-primary mb-1" href="https://github.com/Nsahed"><i class="fab fa-github"></i> Dépôt Github</a>
                     <a class="btn  text-theme-primary mb-1" href="https://www.linkedin.com/in/nacerasahed"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                    <a class="btn  text-theme-primary mb-1" href=""><i class=""></i> Admin</a>
             <h3>Copyright Sahed Nacera</h3>
-        </footer>      
+        </footer>  
+     {% endblock content %}        
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
