@@ -52,8 +52,8 @@ final class ContactFormValidator
     private $successMessage = "Le formulaire a bien été soumis";
     private function validatedName(string $lastName ) : bool
     {
-        if ( !empty($lastName) && strlen($lastName) <=20 && preg_match ("^[A-Za-z '-]+$^",$lastName)){
-           echo   'Le nom nest pas valide';
+        if ( !empty($lastName) ||  strlen($lastName) <=20 || preg_match ("^[A-Za-z '-]+$^",$lastName)){
+          return false ;
         }
         return true;
 
@@ -77,19 +77,24 @@ final class ContactFormValidator
         $this->fields = $this->request->getAllRequest();
     }
 
-    public function isValid()/*:bool */
+    public function isValid() :bool 
     {
         var_dump ($this->fields);
+        $return = true;
         if ( !$this->validatedName($this->fields['lastname'])){
             $this->session->addFlashes('error','Le nom nest pas valide');
+            $return=false;
         }
+        
         if ( !$this->validatedFirstName($this->fields['firstname'])){
             $this->session->addFlashes('error','Le prénom nest pas valide');
+            $return=false;
         }
         if ( !$this->validatedEmail($this->fields['email'])){
             $this->session->addFlashes('error','L"email nest pas valide');
+            $return=false;
         }
 
-
+        return $return;
     }
 }

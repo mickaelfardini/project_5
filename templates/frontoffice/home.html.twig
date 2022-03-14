@@ -1,20 +1,21 @@
 {% extends "/frontoffice/base.html.twig" %}
     {% block title %}
 <!-- Page Header -->
-        <header>            
-            <h1>Apprenez à apprendre chaque jour avec nos posts.</h1>
+        <header class="header">       
+            <h1 class="home_h1">SAHED NACERA</h1>
+            <h2 class="home_h2">Apprenez à apprendre chaque jour avec nos posts.</h2>
         </header>
         <main>            
     {% endblock title %}  
     {% block all_posts %}
-    {% for post in posts %}
+    {#{% for post in posts %}
         <article id="post" >
         <h2>{{ post.title }}</h2>
         <p>{{ post.text }}</p>
         <a href="Projet_5\templates\frontoffice\post.html.twig" class="btn btn-primary">Go somewhere</a>
         </article>
-    {% endfor %}
-        <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> CV</a><br>
+    {% endfor %}#}
+        <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> Télécharger mon CV</a><br>
        
 <!-- Contact form -->
     {% block formular %} 
@@ -28,22 +29,22 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="lastname" name="lastname" class="form-control">
                             <label for="lastname" class="">Nom</label>
+                            <input type="text" id="lastname" name="lastname" class="form-control">
                         </div>
                     </div>
 
                      <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="firstname" name="firstname" class="form-control">
                             <label for="firstname" class="">Prénom</label>
+                            <input type="text" id="firstname" name="firstname" class="form-control">
                         </div>
                     </div>
                    
                     <div class="col-md-6">
                         <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
                             <label for="email" class="">Email</label>
+                            <input type="text" id="email" name="email" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -51,8 +52,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
                             <label for="subject" class="">Objet</label>
+                            <input type="text" id="subject" name="subject" class="form-control">
                         </div>
                     </div>
                 </div>
@@ -60,8 +61,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
                             <label for="message">Votre message</label>
+                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
                         </div>
                     </div>
                 </div>

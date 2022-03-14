@@ -4,16 +4,15 @@
 <link href="/assets/css/style.css" rel="stylesheet">
 {% endblock %}
 
-{% block title %}Tous les posts{% endblock %}
+{% block title %}<h2>Tous les posts</h2>{% endblock %}
 
 {% block content %} 
-    <h2 id="postTitle">Nos posts</h2>
     {% for post in posts %}
         <article id="postContent">
             <h2>{{ post.title }}</h2>
             <p>{{ post.text}}</p>
             <p>{{ post.subtitle}}</p>
-            <a href="index.php?action=post&id={{ post.id}}">Lire le post</a>
+            <a href="index.php?action=post&id_post={{ post.id}}">Lire le post</a>
             <hr>
         </article>
     {% endfor %}

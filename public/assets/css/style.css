@@ -2,8 +2,19 @@
     color: red ;
 }
 
+#navbar-brand{
+    color:rgb(27, 25, 25) ;
+}
 #nav {
-    background-color: #F8F9F9 ;
+    background-color: #f7fcfc ;
+}
+
+#nav-link1{
+    color:black;
+}
+
+#nav-link2{
+    color:black;
 }
 
 #logo {
@@ -11,11 +22,25 @@
     margin-right: 50px ;
 }
 
-h1{
-    padding-top : 10px ;
+.header{
+    background-image: linear-gradient(to bottom, rgba(236, 231, 236, 0.726), rgba(0,0,128,0.5)), url('../background/landscape.jpg') ;
+    background-size: cover;
     text-align: center ;
+    padding-top: 150px;
+    padding-bottom: 150px;
+
 }
 
+.home_h1{
+    font-size: 4rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.home_h2{
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style:italic ;
+}
 #postTitle{
     text-align: center ;
 }

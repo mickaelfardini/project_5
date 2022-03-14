@@ -40,8 +40,6 @@ final class PostController
     public function displayAllAction(Request $request): Response
     {  
          if ($request->getMethod()=== 'POST') {
-             var_dump ( $request->getAllRequest());
-             die;
 
         }
         $posts = $this->postRepository->findAll();

@@ -30,7 +30,7 @@ final class PostRepository
     {
         $postData = [];
         //$this->databaseConnection->getPDO();
-        $req = $this->databaseConnection->prepare('SELECT * FROM post ');
+        $req = $this->databaseConnection->prepare('SELECT * FROM post ORDER BY update_at DESC ');
         $req->execute();
         $postData = $req->fetchAll();
        
@@ -45,13 +45,7 @@ final class PostRepository
         }
         return $posts;
     }
-   /*public function getPosts()
-    {   $sql ="SELECT * FROM post ORDER BY creation_at "
-        $stmt = $this->connect()->query($sql);
-        while($row=$stmt->fetch()){
-            echo $row ['post'];
-        }
-     */   
+    
 
     }
  
