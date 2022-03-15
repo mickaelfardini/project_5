@@ -15,10 +15,12 @@
         <a href="Projet_5\templates\frontoffice\post.html.twig" class="btn btn-primary">Go somewhere</a>
         </article>
     {% endfor %}#}
-        <a class="nav-link" href="/assets/cv/CV_NaceraSahed.pdf"> Télécharger mon CV</a><br>
-       
+        <h2 class="h1-responsive font-weight-bold text-center my-4">En savoir plus sur moi </h2>
+        <img class='avatar' src="\assets\home\AvatarNs.png">
+        <a class="nav-link" id="cv" href="/assets/cv/CV_NaceraSahed.pdf"> Télécharger mon CV</a><br>
+    
 <!-- Contact form -->
-    {% block formular %} 
+   
         <section class="mb-4">
             <h2 class="h1-responsive font-weight-bold text-center my-4">Nous contacter</h2>
             <p class="text-center w-responsive mx-auto mb-5">Vous avez des questions? N'hésitez surtout pas à nous contacter . Nous reviendrons vers vous dès que possible.</p>
@@ -72,9 +74,8 @@
                 <a class="btn" id="btn" onclick="document.getElementById('contact-form').submit();">Soumettre</a>
             </div>
             <div class="status"></div>
-        </div>
-    {% endblock formular %} 
-    {% block contact %} 
+        </div> 
+
         <div class="col-md-3 text-center">
             <ul class="list-unstyled mb-0">
                 <li><i class="fas fa-map-marker-alt fa-2x"></i>
@@ -92,5 +93,5 @@
         </div>
     </div>
 </section>
-    {% endblock contact %} 
+
   {% endblock %}  

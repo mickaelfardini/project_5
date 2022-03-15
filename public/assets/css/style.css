@@ -2,19 +2,22 @@
     color: red ;
 }
 
-#navbar-brand{
+#navbar-brand {
     color:rgb(27, 25, 25) ;
+    font-size: 1.6rem ;
 }
 #nav {
     background-color: #f7fcfc ;
 }
 
-#nav-link1{
-    color:black;
+#nav-link1 {
+    color:black ;
+    font-size: 1.2rem ;
 }
 
-#nav-link2{
-    color:black;
+#nav-link2 {
+    color:black ;
+    font-size: 1.2rem ;
 }
 
 #logo {
@@ -22,7 +25,7 @@
     margin-right: 50px ;
 }
 
-.header{
+.header {
     background-image: linear-gradient(to bottom, rgba(236, 231, 236, 0.726), rgba(0,0,128,0.5)), url('../background/landscape.jpg') ;
     background-size: cover;
     text-align: center ;
@@ -31,21 +34,34 @@
 
 }
 
-.home_h1{
+.home_h1 {
     font-size: 4rem;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.home_h2{
+.home_h2 {
     font-size: 2rem;
     font-family: Arial, Helvetica, sans-serif;
     font-style:italic ;
 }
-#postTitle{
+#postTitle {
     text-align: center ;
 }
 
-#postContent{
+.avatar {
+    width: 20%;
+    display: block ;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+
+#cv {
+    text-align: center ;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+}
+
+#postContent {
     text-align: center;
     background-color: rgb(235, 235, 235);
     block-size: 75% border-box;
@@ -55,7 +71,8 @@
     
 }
 
-#contact-form{
+
+#contact-form {
     background-color: #F8F9F9;
     width: 60% ;
     border: solid rgba(209, 209, 209, 0.89);
@@ -71,5 +88,18 @@
     cursor: pointer;
     text-align: center;
     width: 20%;
-    margin-left: 50%;
+    justify-content: center;
+
+}
+
+#footer {
+    background-color: rgb(204, 200, 200) ;
+    border-top: #f8f8f894 solid 1px ;
+    padding-top: 10px ;
+    padding-bottom: 10px;
+}
+
+#footer_sentence{
+    font-size: 16px ;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
