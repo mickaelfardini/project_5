@@ -26,7 +26,7 @@ class Database
     //$this->port = $port;
     try {
      // $this->pdo = new PDO("mysql:host={$this->host},dbname={$this->dbname};chartset=utf8", $this->username, $this->password);
-     $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->dbname};chartset=utf8", $this->username, $this->password);
+     $this->pdo = new PDO("mysql:host={$this->host};dbname={$this->dbname};chartset=UTF-8", $this->username, $this->password);
     } catch (\Exception $e) {
       var_dump('error');
       throw $e;

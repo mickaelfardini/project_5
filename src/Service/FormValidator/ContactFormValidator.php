@@ -50,41 +50,61 @@ final class ContactFormValidator
     private $fields = [];
     private $errorMessage = "Il y a des erreurs dans votre formulaire";
     private $successMessage = "Le formulaire a bien été soumis";
-    private function validatedName(string $name ): bool
+    private function validatedName(string $lastName ) : bool
     {
-        if ( $name === '###'){
-            return false;
+        if ( $lastName != "") {
+         return true;
+        }
+
+        if (strlen($lastName) > 3) {
+            return true;
+        }
+
+        if (strlen($lastName) <=20) {
+            return true;
+        }
+
+        if (preg_match ("^[A-Za-z '-]+$^",$lastName)) {
+            return true;
+        }
+        return true ;
+    }
+    private function validatedFirstName(string $firstName ) : bool
+    {
+        if ( !empty($firstName) && strlen($firstName) <=20 && preg_match ("^[A-Za-z '-]+$^",$firstName)){
         }
         return true;
-    }
 
+    }
+    private function validatedEmail(string $email) 
+    {
+        if (var_dump(filter_var('email@test.com', FILTER_VALIDATE_EMAIL)));
+        return true;
+    } 
+        
     public function __construct(private Request $request, private Session $session)
     {
         $this->fields = $this->request->getAllRequest();
     }
 
-    public function isValid(): bool
+    public function isValid() :bool 
     {
         var_dump ($this->fields);
+        $return = true;
         if ( !$this->validatedName($this->fields['lastname'])){
             $this->session->addFlashes('error','Le nom nest pas valide');
+            $return=false;
         }
-        if ( !$this->validatedName($this->fields['firstname'])){
+        
+        if ( !$this->validatedFirstName($this->fields['firstname'])){
             $this->session->addFlashes('error','Le prénom nest pas valide');
+            $return=false;
         }
-       /* if ($this->infoUser === null) {
-            return false;
-        }
-
-        $user = $this->userRepository->findOneBy(['email' => $this->infoUser['email']]);
-
-        if (!$user instanceof (User::class) || $this->infoUser['password'] !== $user->getPassword()) {
-            return false;
+        if ( !$this->validatedEmail($this->fields['email'])){
+            $this->session->addFlashes('error','L"email nest pas valide');
+            $return=false;
         }
 
-        $this->session->set('user', $user);
-        */
-
-       // return new Response($this->view->render(['home']));
+        return $return;
     }
 }

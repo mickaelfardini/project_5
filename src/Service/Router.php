@@ -45,13 +45,7 @@ final class Router
 
             return $controller->homeAction($this->request,$contactformvalidator);
 
-        } elseif ($action === 'post') {
-            
-            $postRepo = new PostRepository($this->database);
-            $controller = new PostController($postRepo, $this->view);
-
-            return $controller->displayAllAction($this->request);
-    
+        
       /*  if ($action === 'post') {
             
             $postRepo = new PostRepository($this->database);
@@ -69,7 +63,7 @@ final class Router
                 return $controller->homeAction($this->request,$contactformvalidator);
     
             */
-        } elseif ($action === 'listpost') {
+        } elseif ($action === 'posts') {
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
@@ -77,7 +71,7 @@ final class Router
             return $controller->displayAllAction($this->request);
 
         } elseif ($action === 'post' && $this->request->hasQuery('id_post')) {
-            
+         
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
 
