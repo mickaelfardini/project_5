@@ -89,7 +89,12 @@
     text-align: center;
     width: 20%;
     justify-content: center;
+   
+}
 
+.btnDiv {
+    position: static;
+    
 }
 
 #footer {
@@ -103,3 +108,4 @@
     font-size: 16px ;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+

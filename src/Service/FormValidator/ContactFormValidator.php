@@ -52,16 +52,26 @@ final class ContactFormValidator
     private $successMessage = "Le formulaire a bien été soumis";
     private function validatedName(string $lastName ) : bool
     {
-        if ( !empty($lastName) ||  strlen($lastName) <=20 || preg_match ("^[A-Za-z '-]+$^",$lastName)){
-          return false ;
+        if ( $lastName != "") {
+         return true;
         }
-        return true;
 
+        if (strlen($lastName) > 3) {
+            return true;
+        }
+
+        if (strlen($lastName) <=20) {
+            return true;
+        }
+
+        if (preg_match ("^[A-Za-z '-]+$^",$lastName)) {
+            return true;
+        }
+        return true ;
     }
     private function validatedFirstName(string $firstName ) : bool
     {
         if ( !empty($firstName) && strlen($firstName) <=20 && preg_match ("^[A-Za-z '-]+$^",$firstName)){
-           echo   'Le firstname nest pas valide';
         }
         return true;
 
