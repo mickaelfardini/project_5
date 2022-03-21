@@ -20,9 +20,17 @@ final class PostRepository
 
     public function findOneBy(array $criteria, array $orderBy = null): ?Post
     {
-       // $this->database->prepare('select * from post where id=:id_post');
-        //$data = $this->database->execute($criteria);
-        $data = null;
+       /* $statement = $this->databaseConnection->prepare('select * from post where id=:id_post');
+        $this->statement->execute($criteria);*/var_dump($criteria);
+        die;
+        $statement = $this->databaseConnection->prepare('select * from post where id=:id_post');
+        $data = $statement->execute($criteria);
+    
+        /*$req = $this->databaseConnection->prepare('select * from post where id=:id_post');
+        $this->req->execute($criteria);
+        var_dump($criteria);
+        die;*/
+       
        return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
     }
 

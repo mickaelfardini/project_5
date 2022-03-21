@@ -109,3 +109,12 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+/*page posts*/
+
+.postsTitle {
+    text-align: center ;
+    padding-top: 20px ;
+    padding-bottom: 20px ;
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+}

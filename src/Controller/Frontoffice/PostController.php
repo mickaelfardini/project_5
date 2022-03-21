@@ -19,10 +19,11 @@ final class PostController
     {
         $response = new Response('<h1>faire une redirection vers la page d\'erreur, ce post n\'existe pas</h1><a href="index.php?action=posts">Liste des posts</a><br>', 404);
 
-        $post = $this->postRepository->findOneBy(['id' => $id]);
-
+        $post = $this->postRepository->findOneBy(['id_post' => $id]);
+        var_dump($post,$id);
+        die;
         if ($post !== null) {
-            $comments = $commentRepository->findBy(['idPost' => $id]);
+            $comments = $commentRepository->findBy(['id_post' => $id]);
             $response = new Response($this->view->render(
                 [
                 'template' => 'post',
