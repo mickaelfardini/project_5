@@ -1,39 +1,4 @@
 <?php
-/*
-const ERROR_REQUIRED = 'Veuillez renseigner ce champ';
-const ERROR_LENGTH = 'Le champ doit faire entre 2 et 1° caractères';
-const ERROR_EMAIL = "L'email n'est pas valide";
-
-$errors = [
-    'name' => '',
-    'email' => ''
-];
-
-$_POST = filter_input_array(INPUT_POST,[
-    'name' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-    'email' => FILTER_SANITIZE_EMAIL,
-    'subject' => FILTER_SANITIZE_FULL_SPECIAL_CHARS, 
-    'message' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-]);
-
-$name = $_POST['name']??'';
-$email =$POST['email']??'';
-
-if (!$name) {
-    $errors ['name'] = ERROR_REQUIRED;
-} elseif (mb_strlen($firstname)) < 2 || mb_strlen (($name))> 10 )) {
-    $errors['name'] = ERROR_LENGTH;
-}
-
-if (!$email) {
-    $errors ['email'] = ERROR_REQUIRED;
-} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors ['email'] = ERROR_EMAIL;
-}
-*/
-//*errors ['name] ? '<p style="color:red"> '. $errors [name] ."</p>": ''
-
-
 
 declare(strict_types=1);
 
@@ -43,29 +8,26 @@ use App\Service\Http\Request;
 use App\Service\Http\Session\Session;
 
 
-
-
 final class ContactFormValidator
 {   
     private $fields = [];
-    private $errorMessage = "Il y a des erreurs dans votre formulaire";
-    private $successMessage = "Le formulaire a bien été soumis";
-    private function validatedName(string $name ) : bool
+    
+    private function validatedField(string $field ) : bool
     {
 
-        if ( $name = "") {
+        if ( $field = "") {
          return false;
         }
 
-        if (strlen($name) < 3) {
+        if (strlen($field) < 3) {
             return false;
         }
 
-        if (strlen($name) >=20) {
+        if (strlen($field) >=20) {
             return false;
         }
 
-        if (!preg_match ("^[A-Za-z '-]+$^",$name)) {
+        if (!preg_match ("^[A-Za-z '-]+$^",$field)) {
             return false;
         }
         return true ;
@@ -74,7 +36,9 @@ final class ContactFormValidator
   
     private function validatedEmail(string $email) 
     {
-        if (filter_var('email@test.com', FILTER_VALIDATE_EMAIL));
+        if (!filter_var('email@test.com', FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
         return true;
     } 
         
@@ -87,17 +51,28 @@ final class ContactFormValidator
     {
         var_dump ($this->fields);
         $return = true;
-        if ( !$this->validatedName($this->fields['lastname'])){
-            $this->session->addFlashes('error','Le nom nest pas valide');
+        if ( !$this->validatedField($this->fields['lastname'])){
+            $this->session->addFlashes('error','Le nom n\'est pas valide');
             $return=false;
         }
         
-        if ( !$this->validatedName($this->fields['firstname'])){
-            $this->session->addFlashes('error','Le prénom nest pas valide');
+        if ( !$this->validatedField($this->fields['firstname'])){
+            $this->session->addFlashes('error','Le prénom n\'est pas valide');
             $return=false;
         }
+
         if ( !$this->validatedEmail($this->fields['email'])){
-            $this->session->addFlashes('error','L"email nest pas valide');
+            $this->session->addFlashes('error','L"email n\'est pas valide');
+            $return=false;
+        }
+        
+        if ( !$this->validatedField($this->fields['subject'])){
+            $this->session->addFlashes('error','L\'objet n\'est pas valide');
+            $return=false;
+        }
+
+        if ( !$this->validatedField($this->fields['message'])){
+            $this->session->addFlashes('error','Le message n\'est pas valide');
             $return=false;
         }
 

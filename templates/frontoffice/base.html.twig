@@ -36,7 +36,11 @@
     {% block content %}    
     {% block all_posts %}
     {% endblock all_posts  %}
- 
+        <main>            
+            {% for message in flashes %} {# TODO Gérer les différents type de message flash #}
+                <h2 class="danger"> {{ message }} </h2>
+            {% endfor %}
+        </main>
       <!-- Footer --> 
 
         <footer class="footer text-center" id="footer">
