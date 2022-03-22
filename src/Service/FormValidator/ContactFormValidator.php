@@ -50,35 +50,31 @@ final class ContactFormValidator
     private $fields = [];
     private $errorMessage = "Il y a des erreurs dans votre formulaire";
     private $successMessage = "Le formulaire a bien été soumis";
-    private function validatedName(string $lastName ) : bool
+    private function validatedName(string $name ) : bool
     {
-        if ( $lastName != "") {
-         return true;
+
+        if ( $name = "") {
+         return false;
         }
 
-        if (strlen($lastName) > 3) {
-            return true;
+        if (strlen($name) < 3) {
+            return false;
         }
 
-        if (strlen($lastName) <=20) {
-            return true;
+        if (strlen($name) >=20) {
+            return false;
         }
 
-        if (preg_match ("^[A-Za-z '-]+$^",$lastName)) {
-            return true;
+        if (!preg_match ("^[A-Za-z '-]+$^",$name)) {
+            return false;
         }
         return true ;
     }
-    private function validatedFirstName(string $firstName ) : bool
-    {
-        if ( !empty($firstName) && strlen($firstName) <=20 && preg_match ("^[A-Za-z '-]+$^",$firstName)){
-        }
-        return true;
-
-    }
+    
+  
     private function validatedEmail(string $email) 
     {
-        if (var_dump(filter_var('email@test.com', FILTER_VALIDATE_EMAIL)));
+        if (filter_var('email@test.com', FILTER_VALIDATE_EMAIL));
         return true;
     } 
         
@@ -96,7 +92,7 @@ final class ContactFormValidator
             $return=false;
         }
         
-        if ( !$this->validatedFirstName($this->fields['firstname'])){
+        if ( !$this->validatedName($this->fields['firstname'])){
             $this->session->addFlashes('error','Le prénom nest pas valide');
             $return=false;
         }
