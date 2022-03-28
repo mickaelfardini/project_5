@@ -11,7 +11,7 @@ use App\Service\Http\Session\Session;
 final class ContactFormValidator
 {   
     private $fields = [];
-    
+
     private function validatedField(string $field ) : bool
     {
 

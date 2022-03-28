@@ -31,14 +31,14 @@ final class PostRepository
         var_dump($criteria);
         die;*/
        
-       return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content']);
+       return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content'],$data['created_at']);
     }
 
     public function findAll(): ?array
     {
         $postData = [];
         //$this->databaseConnection->getPDO();
-        $req = $this->databaseConnection->prepare('SELECT * FROM post ORDER BY update_at DESC ');
+        $req = $this->databaseConnection->prepare('SELECT * FROM post ORDER BY created_at DESC ');
         $req->execute();
         $postData = $req->fetchAll();
        

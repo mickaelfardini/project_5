@@ -11,7 +11,9 @@ final class Post
     public function __construct(
         private int $id,
         private string $title,
-        private string $text
+        private string $text,
+        private string $created_at
+        
     ) {
     }
 
@@ -40,5 +42,10 @@ final class Post
     {
         $this->text = $text;
         return $this;
+    }
+
+    public function getDateCreation(): string
+    {
+        return $this->created_at;
     }
 }
