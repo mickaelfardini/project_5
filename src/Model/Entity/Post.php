@@ -11,8 +11,10 @@ final class Post
     public function __construct(
         private int $id,
         private string $title,
+        private string $chapo,
         private string $text,
-        private string $created_at
+        private string $createdAt,
+        private string $updateAt 
         
     ) {
     }
@@ -33,6 +35,17 @@ final class Post
         return $this;
     }
 
+    public function getChapo(): string
+    {
+        return $this->chapo;
+    }
+
+    public function setChapo(string $chapo): self
+    {
+        $this->chapo = $chapo;
+        return $this;
+    }
+
     public function getText(): string
     {
         return $this->text;
@@ -44,8 +57,26 @@ final class Post
         return $this;
     }
 
-    public function getDateCreation(): string
+    public function getCreatedAt(): string
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
+
+    public function setCreatedAt(string $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function setUpdateAt(string $updateAt): self
+    {
+        $this->updateAt = $updateAt;
+        return $this;
+    }
+
+    public function getUpdateAt(): string
+    {
+        return $this->updateAt;
+    }
+
 }

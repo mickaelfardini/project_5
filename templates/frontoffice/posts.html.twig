@@ -10,8 +10,9 @@
     {% for post in posts %}
         <article id="postContent">
             <h2>{{ post.title }}</h2>
+            <p>{{ post.chapo}}</p>
             <p>{{ post.text}}</p>
-            <p>{{ post.subtitle}}</p>
+            <p>{{post.createdtAt}}
             <a href="index.php?action=post&id_post={{post.id}}">Lire le post</a>
             <hr>
         </article>

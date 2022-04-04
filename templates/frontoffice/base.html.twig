@@ -12,7 +12,13 @@
     </head>
 
     <body>
-
+            {% if session.user %}
+                <strong>{{ session.user.pseudo }}</strong>
+                {#{{ session.user.email }}#}
+                <a href="index.php?action=logout">se déconnecter</a><br>
+            {% else %}
+                <a href="index.php?action=login">se connecter</a><br>
+            {% endif %}
         <!-- Navigation -->
 
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3" id="nav">

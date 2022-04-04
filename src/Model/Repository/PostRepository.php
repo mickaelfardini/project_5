@@ -31,7 +31,7 @@ final class PostRepository
         var_dump($criteria);
         die;*/
        
-       return $data === null ? $data : new Post($data['id_post'], $data['title'], $data['content'],$data['created_at']);
+    return $data === null ? $data : new Post((int)$data['id_post'], $data['title'], $data['chapo'],$data['content'],$data['created_at'],$data['update_at']/*,$post['id_user']*/);
     }
 
     public function findAll(): ?array
@@ -47,9 +47,10 @@ final class PostRepository
         }
 
         
+        
         $posts = [];
-        foreach ($postData as $post) {
-            $posts[] = new Post((int)$post['id_post'], $post['title'], $post['content']);
+        foreach ($postData as $post) {   
+            $posts[] = new Post((int)$post['id_post'], $post['title'], $post['chapo'],$post['content'],$post['created_at'],$post['update_at']/*,$post['id_user']*/);
         }
         return $posts;
     }
