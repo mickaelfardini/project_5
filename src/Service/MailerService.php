@@ -13,7 +13,7 @@ class MailerService
 
     // Create the Transport
 $transport = new \Swift_SmtpTransport('localhost', 1025)
-//->setUsername('nacerasahed@gmail.com')
+//->setUsername('your username')
 //->setPassword('your password')
 ;
 

@@ -22,6 +22,7 @@ final class PostController
         $post = $this->postRepository->findOneBy(['id_post' => $id]);
         if ($post !== null) {
             $comments = $commentRepository->findBy(['id_post' => $id]);
+
             $response = new Response($this->view->render(
                 [
                 'template' => 'post',

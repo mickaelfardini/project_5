@@ -12,7 +12,8 @@
             <h2>{{ post.title }}</h2>
             <p>{{ post.chapo}}</p>
             <p>{{ post.text}}</p>
-            <p>{{post.createdtAt}}
+            <p>Date de création: {{ post.createdtAt | date('d/m/Y')}}</p>
+            <p>Date de modification: {{ post.updateAt | date('d/m/Y')}}</p>
             <a href="index.php?action=post&id_post={{post.id}}">Lire le post</a>
             <hr>
         </article>
