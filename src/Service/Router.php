@@ -92,7 +92,14 @@ final class Router
             $controller = new UserController($userRepo, $this->view, $this->session);
 
             return $controller->logoutAction();
-        }
+
+
+        } elseif ($action === 'signup') {
+            $userRepo = new UserRepository($this->database);
+            $controller = new UserController($userRepo, $this->view, $this->session);
+
+            return $controller->signupAction($this->request);
+
 
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
     }
