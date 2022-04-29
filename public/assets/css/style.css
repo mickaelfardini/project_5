@@ -128,3 +128,12 @@
     font-size: 2rem;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+#post{
+    text-align: center;
+}
+
+#postcontent{
+    text-align: center;
+    background-color: white;
+}
