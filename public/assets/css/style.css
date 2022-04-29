@@ -20,6 +20,16 @@
     font-size: 1.2rem ;
 }
 
+#nav-link3 {
+    color:black ;
+    font-size: 1.2rem ;
+}
+
+#nav-link4 {
+    color:black ;
+    font-size: 1.2rem ;
+}
+
 #logo {
     margin-left: 25px ;
     margin-right: 50px ;
@@ -109,3 +119,21 @@
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
+/*page posts*/
+
+.postsTitle {
+    text-align: center ;
+    padding-top: 20px ;
+    padding-bottom: 20px ;
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#post{
+    text-align: center;
+}
+
+#postcontent{
+    text-align: center;
+    background-color: white;
+}

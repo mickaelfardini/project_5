@@ -8,6 +8,7 @@
         "phpstan/phpstan": "^1.2"
     },
     "require": {
-        "twig/twig": "^3.3"
+        "twig/twig": "^3.3",
+        "symfony/swiftmailer-bundle": "^3.5"
     }
 }

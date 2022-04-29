@@ -4,14 +4,15 @@
 <link href="/assets/css/style.css" rel="stylesheet">
 {% endblock %}
 
-{% block title %}<h2>Tous les posts</h2>{% endblock %}
+{% block title %}<h2 class="postsTitle">Tous les posts</h2>{% endblock %}
 
 {% block content %} 
     {% for post in posts %}
         <article id="postContent">
             <h2>{{ post.title }}</h2>
-            <p>{{ post.text}}</p>
-            <p>{{ post.subtitle}}</p>
+            <p>{{ post.chapo}}</p>
+            <p>Date de création: {{ post.createdtAt | date('d/m/Y')}}</p>
+            <p>Date de modification: {{ post.updateAt | date('d/m/Y')}}</p>
             <a href="index.php?action=post&id_post={{post.id}}">Lire le post</a>
             <hr>
         </article>
