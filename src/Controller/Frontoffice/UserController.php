@@ -10,6 +10,7 @@ use App\Service\Http\Response;
 use App\Service\Http\Session\Session;
 use App\Model\Repository\UserRepository;
 use App\Service\FormValidator\LoginFormValidator;
+use App\Service\FormValidator\SignUpFormValidator;
 
 final class UserController
 {
@@ -36,5 +37,11 @@ final class UserController
     {
         $this->session->remove('user');
         return new Response('<h1>Utilisateur déconnecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+    }
+
+    public function SignUpAction(): Response
+    {
+        $this->session->remove('user');
+        return new Response('<h1>Utilisateur non inscrit </h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
     }
 }

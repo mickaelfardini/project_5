@@ -100,7 +100,7 @@ final class Router
 
             return $controller->signupAction($this->request);
 
-
+        }
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
     }
 }
