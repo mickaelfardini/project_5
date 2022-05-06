@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace  App\Service\FormValidator;
 
 use App\Service\Http\Request;
-use App\Service\Http\Session\Session;
 
 
 final class ContactFormValidator
@@ -37,7 +36,7 @@ final class ContactFormValidator
   
     private function validatedEmail(string $email) 
     {
-        if (!filter_var('email@test.com', FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return false;
         }
         return true;
@@ -64,22 +63,26 @@ final class ContactFormValidator
         }
         
         if ( !$this->validatedField($this->fields['firstname'])){
-            $this->session->addFlashes('error','Le prénom n\'est pas valide');
+          //  $this->session->addFlashes('error','Le prénom n\'est pas valide');
+            $this->errors[]='Le prénom n\'est pas valide';
             $return=false;
         }
 
         if ( !$this->validatedEmail($this->fields['email'])){
-            $this->session->addFlashes('error','L"email n\'est pas valide');
+           // $this->session->addFlashes('error','L"email n\'est pas valide');
+           $this->errors[]='L\'email n\'est pas valide';
             $return=false;
         }
         
         if ( !$this->validatedField($this->fields['subject'])){
-            $this->session->addFlashes('error','L\'objet n\'est pas valide');
+            //$this->session->addFlashes('error','L\'objet n\'est pas valide');
+            $this->errors[]='L\'objet  n\'est pas valide';
             $return=false;
         }
 
         if ( !$this->validatedField($this->fields['message'])){
-            $this->session->addFlashes('error','Le message n\'est pas valide');
+            //$this->session->addFlashes('error','Le message n\'est pas valide');
+            $this->errors[]='Le message n\'est pas valide';
             $return=false;
         }
 

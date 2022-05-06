@@ -39,8 +39,8 @@ final class Router
         if ($action === 'home') {
             
             $postRepo = new PostRepository($this->database);
-            $contactformvalidator = new ContactFormValidator($this->request,$this->session);
-            $controller = new HomeController($postRepo, $this->view);
+            $contactformvalidator = new ContactFormValidator($this->request);
+            $controller = new HomeController($postRepo, $this->view, $this->session);
             
 
             return $controller->homeAction($this->request,$contactformvalidator);

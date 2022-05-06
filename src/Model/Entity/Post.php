@@ -6,16 +6,15 @@ namespace App\Model\Entity;
 
 final class Post
 {
-
-
     public function __construct(
         private int $id,
-        private int $userId,
         private string $title,
         private string $chapo,
         private string $text,
         private string $createdAt,
-        private string $updateAt 
+        private string $updateAt, 
+        private int $userId,
+        private string $userName,
         
     ) {
     }
@@ -23,17 +22,6 @@ final class Post
     public function getId(): int
     {
         return $this->id;
-    }
-
-    public function getUserId(): int
-    {
-        return $this->userId;
-    }
-
-    public function setUserId(string $userId): self
-    {
-        $this->userId = $userId;
-        return $this;
     }
 
     public function getTitle(): string
@@ -89,6 +77,28 @@ final class Post
     public function getUpdateAt(): string
     {
         return $this->updateAt;
+    }
+   
+    public function getUserName(): string
+    {
+        return $this->userName;
+    }
+
+    public function setUserName(string $userName): self
+    {
+        $this->userName = $userName;
+        return $this;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(int $userId): self
+    {
+        $this->userId = $userId;
+        return $this;
     }
 
 }

@@ -22,23 +22,24 @@ final class PostRepository
     {
        /* $statement = $this->databaseConnection->prepare('select * from post where id=:id_post');
         $this->statement->execute($criteria);*/
-        $statement = $this->databaseConnection->prepare('select * from post where id_post=:id_post');
+        $statement = $this->databaseConnection->prepare('SELECT post.*, user.username FROM post INNER JOIN user ON user.id_user = post.id_user where id_post=:id_post');
         $statement->execute($criteria);
         $data = $statement->fetch();
+      
        
         /*$req = $this->databaseConnection->prepare('select * from post where id=:id_post');
         $this->req->execute($criteria);
         var_dump($criteria);
         die;*/
        
-    return $data === null ? $data : new Post((int)$data['id_post'], $data['title'], $data['chapo'],$data['content'],$data['created_at'],$data['update_at'],$post['id_user']);
+    return $data === null ? $data : new Post((int)$data['id_post'], $data['title'], $data['chapo'],$data['content'],$data['created_at'],$data['update_at'],$data['id_user'],$data['username']);
     }
 
     public function findAll(): ?array
     {
         $postData = [];
         //$this->databaseConnection->getPDO();
-        $req = $this->databaseConnection->prepare('SELECT * FROM post ORDER BY created_at DESC ');
+        $req = $this->databaseConnection->prepare('SELECT post.*, user.username FROM post INNER JOIN user ON user.id_user = post.id_user  ORDER BY created_at DESC ');
         $req->execute();
         $postData = $req->fetchAll();
        
@@ -47,10 +48,9 @@ final class PostRepository
         }
 
         
-        
         $posts = [];
         foreach ($postData as $post) {   
-            $posts[] = new Post((int)$post['id_post'], $post['title'], $post['chapo'],$post['content'],$post['created_at'],$post['update_at'],$post['id_user']);
+            $posts[] = new Post((int)$post['id_post'], $post['title'], $post['chapo'],$post['content'],$post['created_at'],$post['update_at'],$post['id_user'],$post['username']);
         }
         return $posts;
     }
