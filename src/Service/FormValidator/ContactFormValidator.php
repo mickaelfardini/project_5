@@ -11,6 +11,7 @@ use App\Service\Http\Session\Session;
 final class ContactFormValidator
 {   
     private $fields = [];
+    private $errors = [];
 
     private function validatedField(string $field ) : bool
     {
@@ -42,9 +43,14 @@ final class ContactFormValidator
         return true;
     } 
         
-    public function __construct(private Request $request, private Session $session)
+    public function __construct(private Request $request)
     {
         $this->fields = $this->request->getAllRequest();
+    }
+    
+    public function getErrors() :array
+    {
+        return $this->errors;
     }
 
     public function isValid() :bool 
@@ -52,7 +58,8 @@ final class ContactFormValidator
         var_dump ($this->fields);
         $return = true;
         if ( !$this->validatedField($this->fields['lastname'])){
-            $this->session->addFlashes('error','Le nom n\'est pas valide');
+           // $this->session->addFlashes('error','Le nom n\'est pas valide');
+            $this->errors[]='Le nom n\'est pas valide';
             $return=false;
         }
         

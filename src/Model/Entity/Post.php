@@ -10,6 +10,7 @@ final class Post
 
     public function __construct(
         private int $id,
+        private int $userId,
         private string $title,
         private string $chapo,
         private string $text,
@@ -22,6 +23,17 @@ final class Post
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    public function setUserId(string $userId): self
+    {
+        $this->userId = $userId;
+        return $this;
     }
 
     public function getTitle(): string
