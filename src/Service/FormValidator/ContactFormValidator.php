@@ -15,7 +15,7 @@ final class ContactFormValidator
     private function validatedField(string $field ) : bool
     {
 
-        if ( $field = "") {
+        if (empty($field) ) {
          return false;
         }
 
@@ -59,7 +59,7 @@ final class ContactFormValidator
         if ( !$this->validatedField($this->fields['lastname'])){
            // $this->session->addFlashes('error','Le nom n\'est pas valide');
             $this->errors[]='Le nom n\'est pas valide';
-            $return=false;
+            $return=true;
         }
         
         if ( !$this->validatedField($this->fields['firstname'])){
