@@ -129,11 +129,26 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#post{
+#postTitle{
     text-align: center;
 }
 
 #postcontent{
     text-align: center;
     background-color: white;
+}
+
+#post{
+    margin: 10px;
+    padding: 6px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: center;
+    background-color: #ecb21f;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: black;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 13px;
+    width: 50%;
 }

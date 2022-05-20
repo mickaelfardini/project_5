@@ -3,7 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block content %} 
-  <div class="card-header" id="post">
+  <div class="card-header" id="postTitle">
    <h2>{{ post.title }}</h2>
   </div>
   <div class="card-body" id="postcontent">
@@ -17,6 +17,28 @@
   <div class="card-footer text-muted">
      <section>
         <h3>Commentaires</h3>
+        <!-- Ajouter un nouveau commentaire -->
+
+          <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+                <form id="algin-form">
+                    <div class="form-group">
+                        <h4>Laisser un commentaire</h4>
+                        <label for="message">Message</label>
+                        <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: white;"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Nom</label>
+                        <input type="text" name="name" id="fullname" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="post" class="btn">Poster </button>
+                    </div>
+                </form>
+            </div>
         {% if comments %}
             {% for comment in comments %}
                 <p> {#{{ comment.id }}<br>#}
