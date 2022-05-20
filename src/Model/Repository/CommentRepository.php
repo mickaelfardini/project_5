@@ -19,7 +19,7 @@ final class CommentRepository
 
     public function findBy(array $criteria, array $orderBy = null, int $limit = null, int $offset = null): ?array
     {
-        $statement = $this->databaseConnection->prepare('SELECT comment.* , user.username from comment inner join user ON user.id_user=comment.id_user where id_post=:id_post ');
+        $statement = $this->databaseConnection->prepare('SELECT comment.* , user.id_user from comment inner join user ON user.id_user=comment.id_user where id_post=:id_post ');
         $statement->execute($criteria);
         $data = $statement->fetchAll();
         
@@ -30,7 +30,7 @@ final class CommentRepository
       
         $comments = [];
         foreach ($data as $comment) {
-            $comments[] = new Comment((int)$comment['id_post'], $comment['username'], $comment['content'], (int)$comment['id_post']);
+            $comments[] = new Comment((int)$comment['id_post'], $comment['id_user'], $comment['content'], (int)$comment['id_post']);
         }
 
         return $comments;
