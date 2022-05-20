@@ -6,8 +6,10 @@ namespace  App\Controller\Frontoffice;
 
 use App\View\View;
 use App\Service\Http\Response;
+use App\Service\Http\Session\Session;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
+use App\Service\FormValidator\ContactFormValidator;
 use App\Service\Http\Request;
 final class PostController
 {
@@ -38,11 +40,17 @@ final class PostController
     }
 
     public function displayAllAction(Request $request): Response
-    {  
-         if ($request->getMethod()=== 'POST') {
+    {   
+        if ($request->getMethod()=== 'POST') {
+            $CommentFormValidator = new CommentFormValidator($request);    
+            if ($CommentFormValidator->isValid()){
+                var_dump('valide'); 
+              }
+            
+              $this->session->addFlashes('error', $CommentFormValidator->getErrors());
 
         }
-        $posts = $this->postRepository->findAll();
+        $posts = $this->CommentRepository->findAll();
 
         return new Response($this->view->render([
             'template' => 'posts',
