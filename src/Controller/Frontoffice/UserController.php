@@ -42,6 +42,8 @@ final class UserController
     public function SignUpAction(): Response
     {
         $this->session->remove('user');
-        return new Response('<h1>Utilisateur non inscrit </h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+        return new Response($this->view->render([
+            'template' => 'signup'
+        ]));    
     }
 }

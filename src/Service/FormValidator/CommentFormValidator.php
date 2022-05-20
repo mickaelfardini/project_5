@@ -7,7 +7,7 @@ namespace  App\Service\FormValidator;
 use App\Service\Http\Request;
 
 
-final class ContactFormValidator
+final class CommentFormValidator
 {   
     private $fields = [];
     private $errors = [];
@@ -23,24 +23,12 @@ final class ContactFormValidator
             return false;
         }
 
-        if (strlen($field) >=20) {
+        if (strlen($field) >=2000) {
             return false;
         }
 
-        if (!preg_match ("^[A-Za-z '-]+$^",$field)) {
-            return false;
-        }
         return true ;
     }
-    
-  
-    private function validatedEmail(string $email) 
-    {
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            return false;
-        }
-        return true;
-    } 
         
     public function __construct(private Request $request)
     {
@@ -56,28 +44,10 @@ final class ContactFormValidator
     {
         var_dump ($this->fields);
         $return = true;
-        if ( !$this->validatedField($this->fields['lastname'])){
+        if ( !$this->validatedField($this->fields['name'])){
            // $this->session->addFlashes('error','Le nom n\'est pas valide');
             $this->errors[]='Le nom n\'est pas valide';
             $return=true;
-        }
-        
-        if ( !$this->validatedField($this->fields['firstname'])){
-          //  $this->session->addFlashes('error','Le prénom n\'est pas valide');
-            $this->errors[]='Le prénom n\'est pas valide';
-            $return=false;
-        }
-
-        if ( !$this->validatedEmail($this->fields['email'])){
-           // $this->session->addFlashes('error','L"email n\'est pas valide');
-           $this->errors[]='L\'email n\'est pas valide';
-            $return=false;
-        }
-        
-        if ( !$this->validatedField($this->fields['subject'])){
-            //$this->session->addFlashes('error','L\'objet n\'est pas valide');
-            $this->errors[]='L\'objet  n\'est pas valide';
-            $return=false;
         }
 
         if ( !$this->validatedField($this->fields['message'])){

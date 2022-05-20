@@ -3,13 +3,76 @@
 {% block title %}Login{% endblock %}
 
 {% block content %} 
-    <h2>Formulaire de connexion</h2>    
-    <form method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" >
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" >
-        <input type="submit" value="Submit">        
-    </form>
-    <em>jean@free.fr password</em> 
+
+<div class="padding container d-flex justify-content-center">
+    <div class="col-md-10 col-md-offset-1">
+        <form class="signup-form">
+            <h2 class="text-center">S'inscrire</h2>
+            <hr>
+            <div class="form-group">  <input type="text" class="form-control" placeholder="Nom" required="required"> </div>
+            <div class="form-group"> <input type="email" class="form-control" placeholder="Email" required="required"> </div>
+            <div class="form-group"> <input type="text" class="form-control" placeholder="Nom d'utilisateur" required="required"> </div>
+            <div class="form-group"> <input type="text" class="form-control" placeholder="Mot de passe" required="required"> </div>
+            <div class="form-group text-center"> <button type="submit" class="btn ">S'inscrire</button> </div>
+        </form>
+    </div>
+</div>
+
+<section class="login-block">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="md-float-material form-material" action="#" method="POST">
+                    <div class="auth-box card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="text-center heading" >Vous inscrire </h3>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group form-primary">
+                              <label for="lastname" class="">Nom</label>
+                              <input type="text" class="form-control" name="last_name" value="" placeholder="Nom" id="last_name"> 
+                            </div>
+
+                            <div class="form-group form-primary">
+                              <label for="firstname" class="">Prénom</label>
+                              <input type="text" class="form-control" name="first_name" value="" placeholder="Prénom" id="first_name"> 
+                            </div>
+
+                            <div class="form-group form-primary">
+                              <label for="email" class="">Email</label>
+                              <input type="email" class="form-control" name="email" value="" placeholder="Email" id="email">
+                               
+                            </div>
+
+                            <div class="form-group form-primary">
+                              <label for="password" class="">Mot de passe</label>
+                              <input type="password" class="form-control" name="password" placeholder="Mot de passe" value="" id="password">
+                              
+                            </div>
+
+                            <div class="form-group form-primary">
+                              <label for="password_confirm" class="">Mot de passe</label>
+                              <input type="password" class="form-control" name="password_confirm" placeholder="Confirmation mot de passe" value="" id="password_confirm">
+                                
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="S'inscrire">
+                                   <!--  <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20"><i class="fa fa-lock"></i> Signup Now </button> -->
+                                </div>
+                            </div>
+                            <p class="text-inverse text-center">Vous avez déjà un compte? <a href="<?= base_url() ?>auth/login" data-abc="true">Login</a></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

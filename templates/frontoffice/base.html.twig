@@ -40,9 +40,12 @@
     {% block content %}    
     {% block all_posts %}
     {% endblock all_posts  %}
-        <main>            
-            {% for message in flashes %} {# TODO Gérer les différents type de message flash #}
-                <h2 class="danger"> {{ message }} </h2>
+        <main>    
+            {% for type,messages in flashes %}      
+            {% for message in messages %} 
+                <h2 class="{{type}}"> {{ message }} </h2>
+
+            {% endfor %}
             {% endfor %}
         </main>
       <!-- Footer --> 
