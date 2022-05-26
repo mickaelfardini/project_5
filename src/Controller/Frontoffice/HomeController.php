@@ -32,20 +32,31 @@ final class HomeController
         
           $this->session->addFlashes('error', $contactFormValidator->getErrors());
         
+
         // si pas valid récupére les message flash pas de redirection de page
         // redirection si valide sur la homepage
-       /* $mail = $this->sendMessage->prepareMail($request->request->all());
+     /*  $mail = $this->sendMessage->prepareMail($request->request->all());
 		    if($mail)
         $status = $this->sendMessage()->sendMail($mail);
 	      	$this->set('mail', $request->request->all());
-	      	$this->set('status', $status);*/
-		    
+	      	$this->set('status', $status);
+		   var_dump(getErrors()) ;*/
+      }
+     function sendMessage (MailerService $sendMessage)
+      {
+        $message = [];
+        $message = $sendMessage->checkMail($this->session, $this->request);
+        if (array_key_exists("send", $message)) {
+            $sendMessage->sendMail();
+        }
+        $this->view->render('home', ['mail'=>$message]);
       }
       $posts = $this->postRepository->findAll();
-
+echo "mail envoyé";
         return new Response($this->view->render([
             'template' => 'home',
             'data' => ['posts' => $posts],
+
             //redirection obligaroire à créer
             //$this->response = ['path'=> ''],
            // 'data' => ['posts' => $posts]

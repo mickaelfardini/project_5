@@ -46,4 +46,6 @@ final class UserController
             'template' => 'signup'
         ]));    
     }
+
 }
+

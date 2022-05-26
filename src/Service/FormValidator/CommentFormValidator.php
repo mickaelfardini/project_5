@@ -44,12 +44,7 @@ final class CommentFormValidator
     {
         var_dump ($this->fields);
         $return = true;
-        if ( !$this->validatedField($this->fields['name'])){
-           // $this->session->addFlashes('error','Le nom n\'est pas valide');
-            $this->errors[]='Le nom n\'est pas valide';
-            $return=true;
-        }
-
+    
         if ( !$this->validatedField($this->fields['message'])){
             //$this->session->addFlashes('error','Le message n\'est pas valide');
             $this->errors[]='Le message n\'est pas valide';

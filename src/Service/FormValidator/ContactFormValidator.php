@@ -59,7 +59,7 @@ final class ContactFormValidator
         if ( !$this->validatedField($this->fields['lastname'])){
            // $this->session->addFlashes('error','Le nom n\'est pas valide');
             $this->errors[]='Le nom n\'est pas valide';
-            $return=true;
+            $return=false;
         }
         
         if ( !$this->validatedField($this->fields['firstname'])){
@@ -84,6 +84,11 @@ final class ContactFormValidator
             //$this->session->addFlashes('error','Le message n\'est pas valide');
             $this->errors[]='Le message n\'est pas valide';
             $return=false;
+        }
+
+        if (!empty($this->errors)) {
+            $this->success['send'] = 'Votre message a bien été envoyé.';
+            $return=true;
         }
 
         return $return;
