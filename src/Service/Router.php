@@ -23,6 +23,7 @@ final class Router
     private Database $database;
     private View $view;
     private Session $session;
+    private MailerService $mail;
 
     public function __construct(private Request $request)
     {
@@ -31,6 +32,7 @@ final class Router
         
         $this->session = new Session();
         $this->view = new View($this->session);
+        $this->mail =new MailerService();
     }
 
     public function run(): Response
@@ -42,7 +44,7 @@ final class Router
             $postRepo = new PostRepository($this->database);
             $contactformvalidator = new ContactFormValidator($this->request);
            // $result= new MailerService($this->request);
-            $controller = new HomeController($postRepo, $this->view, $this->session);
+            $controller = new HomeController($postRepo, $this->view, $this->session, $this->mail);
             
 
         return $controller->homeAction($this->request,$contactformvalidator,/*$result*/);

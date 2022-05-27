@@ -7,7 +7,7 @@ namespace  App\Controller\Frontoffice;
 use App\View\View;
 use App\Service\Http\Response;
 use App\Service\Http\Session\Session;
-use App\Service\Http\Session\MailerService;
+use App\Service\MailerService;
 use App\Service\FormValidator\ContactFormValidator;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
@@ -16,22 +16,24 @@ use App\Service\Http\Request;
 
 final class HomeController
     {
-        public function __construct(private PostRepository $postRepository, private View $view, private Session $session)
+        public function __construct(private PostRepository $postRepository, private View $view, private Session $session , private MailerService $mail)
         {
     
         }
        
     
-        public function homeAction(Request $request , ContactFormValidator $contactFormValidator/*, MailerService $mail*/ ): Response
-        {  
+        public function homeAction(Request $request , ContactFormValidator $contactFormValidator ): Response
+        {   
 
              if ($request->getMethod()=== 'POST') {
                 $contactFormValidator = new ContactFormValidator($request);    
                 if ($contactFormValidator->isValid()){
                   var_dump('valide'); //send mail 
-                 /* $this->mail->sendMail();*/
-                  //$this->session->addFlashes ('success', 'Votre message à été envoyé.');
-                 /* return new Response(($this->view->render('home', ['mail'=>$message])), 200);*/
+                $this->mail->sendMessage('subject','content', 'toto@toto.fr');
+                var_dump("mail envoyé");
+                die;
+                $this->session->addFlashes ('success', 'Votre message à été envoyé.');
+                return new Response(($this->view->render('home', ['mail'=>$message])), 200);
               }
             
               $this->session->addFlashes('error', $contactFormValidator->getErrors('error','Formulaire non valide'));

@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-use Swift_SmtpTransport;
-use Swift_Mailer;
-use Swift_Message;
-
+namespace App\Service;
 
 class MailerService
 {
@@ -18,10 +15,10 @@ $transport = new \Swift_SmtpTransport('localhost', 1025);
 
 
 // Create the Mailer using your created Transport
-$mailer = new Swift_Mailer($transport);
+$mailer = new  \Swift_Mailer($transport);
 
 // Create a message
-$message = new Swift_Message();
+$message = new  \Swift_Message();
 $message->setTo($sendto);
 $message->setSubject($subject);
 $message->setFrom(['nacerasahed@blog.com' => 'Nacera SAHED']);
