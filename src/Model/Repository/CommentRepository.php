@@ -36,9 +36,24 @@ final class CommentRepository
         return $comments;
     }
 
+    //Ajout d'un commentaire 
+
     public function create(object $comment): bool
     {
-     
-        return false ;
+        $createComment = [];
+        $statement = $this->databaseConnection->prepare('INSERT INTO comment ( content, id_user, id_post , created_at) VALUES ("content","id_user","created_at",NOW())');
+        $statement->execute();
+
+        return $createComment ;
+    }
+
+    // Suppression d'un commentaire
+
+    public function delete($id_comment)
+    {
+        $statement = $this->databaseConenction->prepare('DELETE FROM comment WHERE id_comment = ?');
+        $commentDelete = $statement->execute(array($id_comment));
+
+        return $commentDelete;
     }
 }

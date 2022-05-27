@@ -26,9 +26,11 @@ final class UserRepository
 
     public function createUser() {
         $newUser = [];
+       // hachage password ???
         $req = $this->databaseConnection->prepare('INSERT INTO user( username, email, password ) VALUES ( "username", "email" , "password")');
         $req->execute();
     
         return $createUser;
     }
+    //Vérification utilisateur existant??? 
 }
