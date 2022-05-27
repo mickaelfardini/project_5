@@ -9,7 +9,7 @@ final class User
     public function __construct(
         private int $id,
         private string $email,
-        private string $pseudo,
+        private string $userName,
         private string $password
     ) {
     }
@@ -19,14 +19,14 @@ final class User
         return $this->id;
     }
 
-    public function getPseudo(): string
+    public function getUserName(): string
     {
-        return $this->pseudo;
+        return $this->userName;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setUserName(string $userName): self
     {
-        $this->pseudo = $pseudo;
+        $this->userName = $userName;
         return $this;
     }
 

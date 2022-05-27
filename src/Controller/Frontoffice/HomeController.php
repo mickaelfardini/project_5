@@ -22,20 +22,20 @@ final class HomeController
         }
        
     
-        public function homeAction(Request $request , ContactFormValidator $contactFormValidator, MailerService $message ): Response
+        public function homeAction(Request $request , ContactFormValidator $contactFormValidator, /*MailerService $message*/ ): Response
         {  
              if ($request->getMethod()=== 'POST') {
                 $contactFormValidator = new ContactFormValidator($request);    
                 if ($contactFormValidator->isValid()){
                   var_dump('valide'); //send mail 
-                  return new Response(($this->view->render('home', ['mail'=>$message])), 200);
+                 /* return new Response(($this->view->render('home', ['mail'=>$message])), 200);*/
               }
             
               $this->session->addFlashes('error', $contactFormValidator->getErrors('error','Formulaire non valide'));
             
             // si pas valid récupére les message flash pas de redirection de page
             // redirection si valide sur la homepage
-            return new Response ($this->view->render('home', ['mail'=>$message]));
+           /* return new Response ($this->view->render('home', ['mail'=>$message]));*/
               
           }
           $posts = $this->postRepository->findAll();

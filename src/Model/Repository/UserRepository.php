@@ -19,6 +19,16 @@ final class UserRepository
         $data = $this->pdo->execute($criteria);
 
        
-        return $data === null ? null : new user((int)$data['id'], $data['pseudo'], $data['email'], $data['password']);
+        return $data === null ? null : new user((int)$data['id'], $data['username'], $data['email'], $data['password']);
+    }
+
+    //Ajouter un utilisateur
+
+    public function createUser() {
+        $newUser = [];
+        $req = $this->databaseConnection->prepare('INSERT INTO user( username, email, password ) VALUES ( "username", "email" , "password")');
+        $req->execute();
+    
+        return $createUser;
     }
 }

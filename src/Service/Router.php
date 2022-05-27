@@ -41,11 +41,11 @@ final class Router
             
             $postRepo = new PostRepository($this->database);
             $contactformvalidator = new ContactFormValidator($this->request);
-            $result= new MailerService($this->request);
+           // $result= new MailerService($this->request);
             $controller = new HomeController($postRepo, $this->view, $this->session);
             
 
-            return $controller->homeAction($this->request,$contactformvalidator,$result);
+        return $controller->homeAction($this->request,$contactformvalidator,/*$result*/);
 
         
       /*  if ($action === 'post') {
