@@ -55,6 +55,27 @@ final class PostRepository
         return $posts;
     }
     
+    //Ajout d'un post
+
+    public function create(object $post): bool
+    {
+        $createPost = [];
+        $req = $this->databaseConnection->prepare('INSERT INTO post (title, chapo , created_at,update_at, content , id_user ) VALUES ("test","test chapo",NOW(),NOW(),"hellotest","id_user")');
+        $req->execute();
+
+        return $createPost ;
+    }
+
+    // Suppression d'un post
+
+    public function delete($id_post)
+    {
+        $req = $this->databaseConnection->prepare('DELETE FROM post WHERE id_post = ?');
+        $postDelete = $statement->execute(array($id_post));
+
+        return $postDelete;
+    }
+
 
     }
  

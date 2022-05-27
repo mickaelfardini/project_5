@@ -51,9 +51,11 @@ final class CommentRepository
 
     public function delete($id_comment)
     {
-        $statement = $this->databaseConenction->prepare('DELETE FROM comment WHERE id_comment = ?');
+        $statement = $this->databaseConnection->prepare('DELETE FROM comment WHERE id_comment = ?');
         $commentDelete = $statement->execute(array($id_comment));
 
         return $commentDelete;
     }
+
+    //suppression de tous les commentaire d'un post ???? 
 }
