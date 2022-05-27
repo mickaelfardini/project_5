@@ -8,7 +8,7 @@ final class Comment
 {
     public function __construct(
         private int $id,
-        private string $pseudo, 
+        private int $userName, 
         private string $text,
         private int $idPost
     ) {
@@ -19,9 +19,9 @@ final class Comment
         return $this->id;
     }
 
-    public function getPseudo(): string
+    public function getUserName(): int
     {
-        return $this->pseudo;
+        return $this->userName;
     }
 
     public function getText(): string

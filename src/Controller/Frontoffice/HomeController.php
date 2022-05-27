@@ -22,12 +22,15 @@ final class HomeController
         }
        
     
-        public function homeAction(Request $request , ContactFormValidator $contactFormValidator, /*MailerService $message*/ ): Response
+        public function homeAction(Request $request , ContactFormValidator $contactFormValidator/*, MailerService $mail*/ ): Response
         {  
+
              if ($request->getMethod()=== 'POST') {
                 $contactFormValidator = new ContactFormValidator($request);    
                 if ($contactFormValidator->isValid()){
                   var_dump('valide'); //send mail 
+                 /* $this->mail->sendMail();*/
+                  //$this->session->addFlashes ('success', 'Votre message à été envoyé.');
                  /* return new Response(($this->view->render('home', ['mail'=>$message])), 200);*/
               }
             
