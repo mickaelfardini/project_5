@@ -13,6 +13,7 @@ use App\Model\Repository\UserRepository;
 use App\Service\FormValidator\ContactFormValidator;
 use App\Service\Http\Request;
 use App\Service\Http\Response;
+use App\Service\MailerService;
 use App\Service\Http\Session\Session;
 use App\View\View;
 use App\Service\Database;
@@ -40,10 +41,11 @@ final class Router
             
             $postRepo = new PostRepository($this->database);
             $contactformvalidator = new ContactFormValidator($this->request);
+            $result= new MailerService($this->request);
             $controller = new HomeController($postRepo, $this->view, $this->session);
             
 
-            return $controller->homeAction($this->request,$contactformvalidator);
+            return $controller->homeAction($this->request,$contactformvalidator,$result);
 
         
       /*  if ($action === 'post') {
@@ -95,6 +97,12 @@ final class Router
 
 
         } elseif ($action === 'signup') {
+            $userRepo = new UserRepository($this->database);
+            $controller = new UserController($userRepo, $this->view, $this->session);
+
+            return $controller->signupAction($this->request);
+
+        } elseif ($action === 'accessAccount') {
             $userRepo = new UserRepository($this->database);
             $controller = new UserController($userRepo, $this->view, $this->session);
 
