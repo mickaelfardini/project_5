@@ -13,58 +13,52 @@ use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
 use App\Service\Http\Request;
 
+
 final class HomeController
-{
-    public function __construct(private PostRepository $postRepository, private View $view, private Session $session)
     {
-
-    }
-   
-
-    public function homeAction(Request $request , ContactFormValidator $contactFormValidator ): Response
-    {  
-         if ($request->getMethod()=== 'POST') {
-            $contactFormValidator = new ContactFormValidator($request);    
-            if ($contactFormValidator->isValid()){
-              var_dump('valide'); //send mail 
-            //  return new Response('<h1>Utilisateur connecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+        public function __construct(private PostRepository $postRepository, private View $view, private Session $session)
+        {
+    
+        }
+       
+    
+        public function homeAction(Request $request , ContactFormValidator $contactFormValidator, /*MailerService $message*/ ): Response
+        {  
+             if ($request->getMethod()=== 'POST') {
+                $contactFormValidator = new ContactFormValidator($request);    
+                if ($contactFormValidator->isValid()){
+                  var_dump('valide'); //send mail 
+                 /* return new Response(($this->view->render('home', ['mail'=>$message])), 200);*/
+              }
+            
+              $this->session->addFlashes('error', $contactFormValidator->getErrors('error','Formulaire non valide'));
+            
+            // si pas valid récupére les message flash pas de redirection de page
+            // redirection si valide sur la homepage
+           /* return new Response ($this->view->render('home', ['mail'=>$message]));*/
+              
           }
-        
-          $this->session->addFlashes('error', $contactFormValidator->getErrors());
-        
-        // si pas valid récupére les message flash pas de redirection de page
-        // redirection si valide sur la homepage
-       /* $mail = $this->sendMessage->prepareMail($request->request->all());
-		    if($mail)
-        $status = $this->sendMessage()->sendMail($mail);
-	      	$this->set('mail', $request->request->all());
-	      	$this->set('status', $status);*/
-		    
-      }
-      $posts = $this->postRepository->findAll();
-
-        return new Response($this->view->render([
-            'template' => 'home',
-            'data' => ['posts' => $posts],
-            //redirection obligaroire à créer
-            //$this->response = ['path'=> ''],
-           // 'data' => ['posts' => $posts]
-
-        ]));    
-    }
-
-    /*public function mailAction(Request $request)
-        if(empty($request))
-            return new Response('Le formulaire est incomplet');
-        
-        $status = false;
-
-		$mail = $this->Mailer->prepareMail($request->request->all());
-		if($mail)
-			$status = $this->Mailer->sendMail($mail);
-
-		$this->set('mail', $request->request->all());
-		$this->set('status', $status);
-
-		return new Response('blog/mail.twig'));*/
-}   
+          $posts = $this->postRepository->findAll();
+    
+            return new Response($this->view->render([
+                'template' => 'home',
+                'data' => ['posts' => $posts],
+                //redirection obligaroire à créer
+                //$this->response = ['path'=> ''],
+               // 'data' => ['posts' => $posts]
+    
+            ]));    
+        }
+    
+        /*public function mailAction(Request $request)
+            if(empty($request))
+                return new Response('Le formulaire est incomplet');
+            
+            $status = false;
+        $mail = $this->Mailer->prepareMail($request->request->all());
+        if($mail)
+          $status = $this->Mailer->sendMail($mail);
+        $this->set('mail', $request->request->all());
+        $this->set('status', $status);
+        return new Response('blog/mail.twig'));*/
+}
