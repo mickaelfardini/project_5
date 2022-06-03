@@ -30,7 +30,7 @@ final class HomeController
                 if ($contactFormValidator->isValid()){
                   var_dump('valide'); //send mail 
                 $this->mail->sendMessage('subject','content', 'toto@toto.fr');
-                var_dump("mail envoyé");
+               var_dump("mail envoyé");
                 die;
                 $this->session->addFlashes ('success', 'Votre message à été envoyé.');
                 return new Response(($this->view->render('home', ['mail'=>$message])), 200);
@@ -41,6 +41,8 @@ final class HomeController
             // si pas valid récupére les message flash pas de redirection de page
             // redirection si valide sur la homepage
            /* return new Response ($this->view->render('home', ['mail'=>$message]));*/
+
+
               
           }
           $posts = $this->postRepository->findAll();
