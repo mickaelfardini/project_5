@@ -11,15 +11,16 @@ final class UserRepository
 {
     public function __construct(private Database $database)
     {
+        $this->databaseConnection = $database->getPDO();
     }
 
     public function findOneBy(array $criteria, array $orderBy = null): ?User
     {
-        $this->pdo->prepare('select * from user where email=:email');
-        $data = $this->pdo->execute($criteria);
-
+        $req=$this->databaseConnection->prepare('select * from user where email=:email');
+        $req->execute($criteria);
+        $data = $req->fetch();
        
-        return $data === null ? null : new user((int)$data['id'], $data['username'], $data['email'], $data['password']);
+        return $data === null ? null : new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);
     }
 
     //Ajouter un utilisateur
@@ -32,20 +33,22 @@ final class UserRepository
     
         return $createUser;
     }
+
     //Vérification utilisateur existant??? 
     public function login ($username, $password){
         $req = $this->databaseConnection->prepare('SELECT * FROM user WHERE username=:username LIMIT 1');
         $req->execute(array(':username'=> $username));
         $userFound = $req->fetch(PDO::FETCH_ASSOC);
+        $verifyPassword = password_verify($password,$username['password']);
 
-        if (password_needs_rehash($user['password'], $this->encrypt)) {
+        if (password_needs_rehash($username['password'], $this->encrypt)) {
             $password = password_hash($user['password'], $this->encrypt);
-            $req = $this->getDb()->prepare("UPDATE user SET password = :password WHERE id = :id");
-            $req->execute(array(':password' => $password, ':id' => $user['id']));
+            $req = $this->getDb()->prepare("UPDATE username SET password = :password WHERE id = :id");
+            $req->execute(array(':password' => $password, ':id' => $username['id']));
         }
 
-        if ($checkPassword) {
-            return $user;
+        if ($verifyPassword) {
+            return $username;
         }
         
         return false;

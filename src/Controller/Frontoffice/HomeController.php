@@ -56,16 +56,4 @@ final class HomeController
     
             ]));    
         }
-    
-        /*public function mailAction(Request $request)
-            if(empty($request))
-                return new Response('Le formulaire est incomplet');
-            
-            $status = false;
-        $mail = $this->Mailer->prepareMail($request->request->all());
-        if($mail)
-          $status = $this->Mailer->sendMail($mail);
-        $this->set('mail', $request->request->all());
-        $this->set('status', $status);
-        return new Response('blog/mail.twig'));*/
 }
