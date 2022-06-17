@@ -33,4 +33,22 @@ final class UserRepository
         return $createUser;
     }
     //Vérification utilisateur existant??? 
+    public function login ($username, $password){
+        $req = $this->databaseConnection->prepare('SELECT * FROM user WHERE username=:username LIMIT 1');
+        $req->execute(array(':username'=> $username));
+        $userFound = $req->fetch(PDO::FETCH_ASSOC);
+
+        if (password_needs_rehash($user['password'], $this->encrypt)) {
+            $password = password_hash($user['password'], $this->encrypt);
+            $req = $this->getDb()->prepare("UPDATE user SET password = :password WHERE id = :id");
+            $req->execute(array(':password' => $password, ':id' => $user['id']));
+        }
+
+        if ($checkPassword) {
+            return $user;
+        }
+        
+        return false;
+    }
+    
 }
