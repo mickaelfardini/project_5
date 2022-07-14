@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace  App\Service;
 
+use App\Controller\Backoffice\PostAdminController;
+use App\Controller\Backoffice\CommentAdminController;
 use App\Controller\Frontoffice\PostController;
 use App\Controller\Frontoffice\UserController;
 use App\Controller\Frontoffice\HomeController;
@@ -23,6 +25,7 @@ final class Router
     private Database $database;
     private View $view;
     private Session $session;
+    private MailerService $mail;
 
     public function __construct(private Request $request)
     {
@@ -31,6 +34,7 @@ final class Router
         
         $this->session = new Session();
         $this->view = new View($this->session);
+        $this->mail =new MailerService();
     }
 
     public function run(): Response
@@ -42,7 +46,7 @@ final class Router
             $postRepo = new PostRepository($this->database);
             $contactformvalidator = new ContactFormValidator($this->request);
            // $result= new MailerService($this->request);
-            $controller = new HomeController($postRepo, $this->view, $this->session);
+            $controller = new HomeController($postRepo, $this->view, $this->session, $this->mail);
             
 
         return $controller->homeAction($this->request,$contactformvalidator,/*$result*/);
@@ -108,7 +112,21 @@ final class Router
 
             return $controller->signupAction($this->request);
 
-        }
+        } elseif ($action === 'adminpost') {
+        $postRepo = new PostRepository($this->database);
+        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+
+        return $controller->listPostAdminAction();
+
+    } elseif ($action === 'admincomment') {
+        $commentRepo = new CommentRepository($this->database);
+        $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
+
+        return $controller->listCommentAdminAction();
+
+}
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
     }
 }
+
+//faire attention a bien afficher la route actionBackoffice

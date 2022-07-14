@@ -76,10 +76,17 @@ final class PostRepository
         return $postDelete;
     }
 
+    //Modifier un post 
 
+    public function modifyPost() {
+        $modifyPost = [];
+        $req = $this->databaseConnection->prepare('UPDATE post SET title =, chapo , created_at,update_at, content , id_user  WHERE id=:id');
+        $req->execute();
+
+        return $modifyPost;
     }
  
-
+}
 
 
 

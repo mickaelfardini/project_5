@@ -24,7 +24,9 @@ final class View
         $data['data']['session'] = $this->session->getAll();
         $data['data']['flashes'] = $this->session->getFlashes();
 
-        return $this->twig->render("frontoffice/${data['template']}.html.twig", $data['data']);
+        //return $this->twig->render("frontoffice/${data['template']}.html.twig", $data['data']);
+        return $this->twig->render("backoffice/${data['template']}.html.twig", $data['data']);
+        
     }
 
 }

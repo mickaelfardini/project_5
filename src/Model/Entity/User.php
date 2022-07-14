@@ -10,7 +10,8 @@ final class User
         private int $id,
         private string $email,
         private string $userName,
-        private string $password
+        private string $password,
+        private string $userRole
     ) {
     }
 
@@ -51,4 +52,17 @@ final class User
         $this->password = $password;
         return $this;
     }
+
+    public function getUserRole(): string
+    {
+        return $this->userRole;
+    }
+
+    public function setUserRole(string $userRole): self
+    {
+        $this->userRole = $userRole;
+        return $this;
+    }
+    
+
 }

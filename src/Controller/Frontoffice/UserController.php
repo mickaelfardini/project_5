@@ -26,7 +26,7 @@ final class UserController
 
             if ($loginFormValidator->isValid()) {
                 
-                return new Response('<h1>Utilisateur connecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+                return new Response($this->view->render(['template' => 'admin', 'data' => [], 200]));
             }
             $this->session->addFlashes('error', 'Mauvais identifiants');
         }

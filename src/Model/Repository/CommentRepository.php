@@ -36,6 +36,29 @@ final class CommentRepository
         return $comments;
     }
 
+
+//All comments
+
+    public function findAll(): ?array
+    {
+        $commentData = [];
+        //$this->databaseConnection->getPDO();
+        $req = $this->databaseConnection->prepare('SELECT comment.* , user.id_user from comment inner join user ON user.id_user=comment.id_user where id_post=:id_post ');
+        $req->execute();
+        $commentData = $req->fetchAll();
+       
+        if (count($commentData)  === 0 ) {
+            return null;
+        }
+
+        
+        $comments = [];
+        foreach ($commentData as $comment) {   
+            $comments[] = new Comment((int)$comment['id_post'], $comment['id_user'], $comment['content']);
+        }
+        return $comments;
+    }
+
     //Ajout d'un commentaire 
 
     public function create(object $comment): bool
@@ -57,5 +80,5 @@ final class CommentRepository
         return $commentDelete;
     }
 
-    //suppression de tous les commentaire d'un post ???? 
+   
 }

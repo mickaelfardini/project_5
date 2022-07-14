@@ -1,5 +1,5 @@
 <?php
-
+//modification role (editeur / utilisateur ) pas modif role admin 
 declare(strict_types=1);
 
 namespace  App\Controller\Frontoffice;
@@ -12,39 +12,20 @@ use App\Model\Repository\UserRepository;
 use App\Service\FormValidator\LoginFormValidator;
 use App\Service\FormValidator\SignUpFormValidator;
 
-final class UserController
-{
-    public function __construct(private UserRepository $userRepository, private View $view, private Session $session)
-    {
-    }
+//modif du statut (admin , editeur , lecteur )
 
-    public function loginAction(Request $request): Response
+final class UserAdminController
     {
-       
-        if ($request->getMethod() === 'POST') {
-            $loginFormValidator = new LoginFormValidator($request, $this->userRepository, $this->session);
-
-            if ($loginFormValidator->isValid()) {
-                
-                return new Response('<h1>Utilisateur connecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
-            }
-            $this->session->addFlashes('error', 'Mauvais identifiants');
+        public function __construct(private PostRepository $postRepository, private View $view, private Session $session )
+        {
+    
         }
-        return new Response($this->view->render(['template' => 'login', 'data' => []]));
-    }
-
-    public function logoutAction(): Response
-    {
-        $this->session->remove('user');
-        return new Response('<h1>Utilisateur déconnecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
-    }
-
-    public function SignUpAction(): Response
-    {
-        $this->session->remove('user');
-        return new Response($this->view->render([
-            'template' => 'signup'
-        ]));    
-    }
-
+    
+        public function userAdminAction()
+        {
+           var_dump("useraction");
+           die;
+    
+            // ajouter post / modifier /supprimer
+            }
 }
