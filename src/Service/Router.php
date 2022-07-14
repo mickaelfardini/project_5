@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace  App\Service;
 
+use App\Controller\Backoffice\PostAdminController;
 use App\Controller\Frontoffice\PostController;
 use App\Controller\Frontoffice\UserController;
 use App\Controller\Frontoffice\HomeController;
@@ -110,7 +111,21 @@ final class Router
 
             return $controller->signupAction($this->request);
 
-        }
+        } elseif ($action === 'adminpost') {
+        $postRepo = new PostRepository($this->database);
+        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+
+        return $controller->listPostAdminAction();
+
+    } elseif ($action === 'admincomment') {
+        $postRepo = new CommentRepository($this->database);
+         $controller = new CommentController($postRepo, $this->view, $this->session);
+
+    return $controller->commentAdminAction();
+
+}
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
     }
 }
+
+//faire attention a bien afficher la route actionBackoffice
