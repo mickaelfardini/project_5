@@ -60,6 +60,7 @@ final class PostAdminController
         }
         public function listPostAdminAction()
         {
+           
             $posts = $this->postRepository->findAll();
     
             return new Response($this->view->render([

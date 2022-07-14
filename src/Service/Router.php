@@ -119,10 +119,10 @@ final class Router
         return $controller->listPostAdminAction();
 
     } elseif ($action === 'admincomment') {
-        $postRepo = new CommentRepository($this->database);
-         $controller = new CommentAdminController($postRepo, $this->view, $this->session);
+        $commentRepo = new CommentRepository($this->database);
+        $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
 
-    return $controller->commentListAdminAction();
+        return $controller->listCommentAdminAction();
 
 }
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
