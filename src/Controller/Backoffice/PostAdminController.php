@@ -37,27 +37,35 @@ final class PostAdminController
                
       
             return new Response($this->view->render([
-                'template' => 'admin',
+                'template' => 'addpostlist',
     
             ]));    
 
     }
-    public function modifyPostAdminAction($id)
+    public function modifyPostAdminAction()
     {
        
-            $ModifyPost = new PostRespository($request);    
+          /*  $ModifyPost = new PostRespository($request);    
             $post = $postRespository-> findOneBy($id);
 
             if (!$post) {
                 throw new Exception('L\'article demandé n\'existe pas !');
             }
             return new Response($this->view->render([
-                'template' => 'postlist',
+                'template' => 'modifypost',
     
-            ]));    
+            ]));    */
 
-        // ajouter post / modifier /supprimer
+            $posts = $this->postRepository->findAll();
+    
+            return new Response($this->view->render([
+                'template' => 'modifypost',
+                'data' => ['posts' => $posts],
+            ]));
+
+       
         }
+
         public function listPostAdminAction()
         {
            

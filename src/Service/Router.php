@@ -125,6 +125,12 @@ final class Router
 
         return $controller->addPostAdminAction();
         
+    } elseif ($action === 'adminmodifypost') {
+        $postRepo = new PostRepository($this->database);
+        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+
+        return $controller->modifyPostAdminAction();
+        
     } elseif ($action === 'admincomment') {
         $commentRepo = new CommentRepository($this->database);
         $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
