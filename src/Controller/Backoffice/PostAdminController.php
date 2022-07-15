@@ -18,7 +18,7 @@ final class PostAdminController
     
         }
     
-        public function addPost($username, $title, $chapo, $content)
+        public function  addPostAdminAction(/*$username, $title, $chapo, $content*/)
         {
             $errors = [];
     
@@ -42,7 +42,7 @@ final class PostAdminController
             ]));    
 
     }
-    public function modifyPost($id)
+    public function modifyPostAdminAction($id)
     {
        
             $ModifyPost = new PostRespository($request);    
@@ -69,4 +69,11 @@ final class PostAdminController
             ]));
             // ajouter post / modifier /supprimer
             }
+       
+                public function deletePostAdminAction()
+                {
+                   
+              
+                    
+                    }
 }

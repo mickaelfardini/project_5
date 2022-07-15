@@ -16,23 +16,18 @@ declare(strict_types=1);
             {
             }
         
-            public function listCommentAdminAction()
-            {
-               {
-                  $comments = $this->commentRepository->findAll();
-          
-                  return new Response($this->view->render([
-                      'template' => 'commentlist',
-                         'comments' => $comments,
-                  ]));
-                  }
-                    // 2 soluce : tous comment non validé $
-           // : 2 page une avec liste 
-
-
-            // ajouter post / modifier /supprimer
-                }
+           
+                public function addCommentAdminAction( )
+                {
+                   {
+                      $comments = $this->commentRepository->create();
+              
+                      return new Response($this->view->render([
+                          'template' => 'commentlist',
+                             'comments' => $comments,
+                      ]));
+                      }
     }
         
-         
+           }
        

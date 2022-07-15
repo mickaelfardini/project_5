@@ -6,6 +6,7 @@ namespace  App\Service;
 
 use App\Controller\Backoffice\PostAdminController;
 use App\Controller\Backoffice\CommentAdminController;
+use App\Controller\Backoffice\UserAdminController;
 use App\Controller\Frontoffice\PostController;
 use App\Controller\Frontoffice\UserController;
 use App\Controller\Frontoffice\HomeController;
@@ -118,11 +119,17 @@ final class Router
 
         return $controller->listPostAdminAction();
 
+    }  elseif ($action === 'adminaddpost') {
+        $postRepo = new PostRepository($this->database);
+        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+
+        return $controller->addPostAdminAction();
+        
     } elseif ($action === 'admincomment') {
         $commentRepo = new CommentRepository($this->database);
         $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
 
-        return $controller->listCommentAdminAction();
+        return $controller->addCommentAdminAction();
 
 }
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
