@@ -58,7 +58,7 @@ final class CommentRepository
         return $comments;
     }
 
-    //Ajout d'un commentaire 
+    //Ajout d'un commentaire dans le front
 
     public function create()
     {

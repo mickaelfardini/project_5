@@ -37,6 +37,7 @@ final class PostAdminController
                
       
             return new Response($this->view->render([
+                'path'=>'backoffice',
                 'template' => 'addpostlist',
     
             ]));    
@@ -59,6 +60,7 @@ final class PostAdminController
             $posts = $this->postRepository->findAll();
     
             return new Response($this->view->render([
+                'path'=>'backoffice',
                 'template' => 'modifypost',
                 'data' => ['posts' => $posts],
             ]));
@@ -72,6 +74,7 @@ final class PostAdminController
             $posts = $this->postRepository->findAll();
     
             return new Response($this->view->render([
+                'path'=>'backoffice',
                 'template' => 'postlist',
                 'data' => ['posts' => $posts],
             ]));

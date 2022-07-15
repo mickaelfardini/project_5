@@ -26,6 +26,7 @@ final class PostController
 
             $response = new Response($this->view->render(
                 [
+                'path'=>'frontoffice',
                 'template' => 'post',
                 'data' => [
                     'post' => $post,
@@ -53,6 +54,7 @@ final class PostController
         $posts = $this->postRepository->findAll();
 
         return new Response($this->view->render([
+            'path'=>'frontoffice',
             'template' => 'posts',
             'data' => ['posts' => $posts],
         ]));

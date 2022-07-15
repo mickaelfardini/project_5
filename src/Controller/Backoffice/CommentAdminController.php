@@ -23,6 +23,7 @@ declare(strict_types=1);
                       $comments = $this->commentRepository->create();
               
                       return new Response($this->view->render([
+                        'path'=>'backoffice',
                           'template' => 'commentlist',
                              'comments' => $comments,
                       ]));

@@ -48,6 +48,7 @@ final class HomeController
           $posts = $this->postRepository->findAll();
     
             return new Response($this->view->render([
+              'path'=>'frontoffice',
                 'template' => 'home',
                 'data' => ['posts' => $posts],
                 //redirection obligaroire à créer
