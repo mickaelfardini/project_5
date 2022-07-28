@@ -11,7 +11,9 @@
     </head>
 
     <body>
-        <!-- Navigation -->
+
+     {% block navigation %}
+        <!--Navigation -->
 
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3" id="nav">
             <img src="/assets/favicon/favicon.jpg" width="50" height="50" class="d-inline-block align-top" id="logo" >
@@ -36,6 +38,7 @@
                 </ul>
             </div>
         </nav>
+    {% endblock navigation %}
      {% block title %}{% endblock title %}
     {% block content %}    
     {% block all_posts %}

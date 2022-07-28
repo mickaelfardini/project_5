@@ -26,11 +26,11 @@ final class UserController
 
             if ($loginFormValidator->isValid()) {
                 
-                return new Response($this->view->render(['path'=>'frontoffice','template' => 'admin', 'data' => [], 200])); //redirection 
+                return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200])); //redirection 
             }
             $this->session->addFlashes('error', 'Mauvais identifiants');
         }
-        return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => []]));
+        return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => []])); 
     }
 
     public function logoutAction(): Response
