@@ -11,9 +11,7 @@
     </head>
 
     <body>
-
-     {% block navigation %}
-        <!--Navigation -->
+        <!-- Navigation -->
 
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm p-3" id="nav">
             <img src="/assets/favicon/favicon.jpg" width="50" height="50" class="d-inline-block align-top" id="logo" >
@@ -35,44 +33,21 @@
                       <li class="nav-item {% if url == 'login' %} active {% endif %}">
                      <a class="nav-link"  id="nav-link4" href="index.php?action=login">Se connecter</a>
                      </li>
-                
-                        {% if auth.user == empty %}
-                            <li><a class="nav-link" href=" index.php?action=login " ><i class="bi bi-person-check" style="font-size: 1.5em"></i></a></li>
-                        {% else %}
-                            <li><a class="nav-link" href="index.php?action=log" ><i class="bi bi-person-x" style="font-size: 1.5em"></i></a></li>
-                        {% endif %}
-
-                    </ul>
-
-                    <i class="bi bi-list mobile-nav-toggle"></i>
-                </nav><!-- .navbar -->
-
                 </ul>
             </div>
         </nav>
-    {% endblock navigation %}
      {% block title %}{% endblock title %}
     {% block content %}    
-    {% block all_posts %}
-    {% endblock all_posts  %}
-        <main>    
-            {% for type,messages in flashes %}      
-            {% for message in messages %} 
-                <h2 class="{{type}}"> {{ message }} </h2>
+   
+          <section class="container mt-5 mb-5">
+        <h1>Not Found</h1>
+   
 
-            {% endfor %}
-            {% endfor %}
-        </main>
-      <!-- Footer --> 
+        <div class="d-flex justify-content-center bd-highlight mb-3">
+            <a class="btn btn-success" href="/">Retourner home</a>
+        </div>
+    </section>
 
-        <footer class="footer text-center" id="footer">
-             <span class="text-theme-primary" id="footer_sentence">Projet 5 parcours développeur d'application PHP/Symfony chez OpenClassrooms.</span>
-                    <br>
-                    <a class="btn text-theme-primary mb-1" href="https://github.com/Nsahed"><i class="fab fa-github"></i> Dépôt Github</a>
-                    <a class="btn  text-theme-primary mb-1" href="https://www.linkedin.com/in/nacerasahed"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
-                    <a class="btn  text-theme-primary mb-1" href=""><i class=""></i> Admin</a>
-            <h6>Copyright Sahed Nacera</h6>
-        </footer>  
      {% endblock content %}        
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

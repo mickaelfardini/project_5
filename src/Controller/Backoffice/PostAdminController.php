@@ -18,7 +18,7 @@ final class PostAdminController
     
         }
     
-        public function addPost($username, $title, $chapo, $content)
+        public function  addPostAdminAction(/*$username, $title, $chapo, $content*/)
         {
             $errors = [];
     
@@ -37,36 +37,54 @@ final class PostAdminController
                
       
             return new Response($this->view->render([
-                'template' => 'admin',
+                'path'=>'backoffice',
+                'template' => 'addpostlist',
     
             ]));    
 
     }
-    public function modifyPost($id)
+    public function modifyPostAdminAction()
     {
        
-            $ModifyPost = new PostRespository($request);    
+          /*  $ModifyPost = new PostRespository($request);    
             $post = $postRespository-> findOneBy($id);
 
             if (!$post) {
                 throw new Exception('L\'article demandé n\'existe pas !');
             }
             return new Response($this->view->render([
-                'template' => 'postlist',
+                'template' => 'modifypost',
     
-            ]));    
+            ]));    */
 
-        // ajouter post / modifier /supprimer
+            $posts = $this->postRepository->findAll();
+    
+            return new Response($this->view->render([
+                'path'=>'backoffice',
+                'template' => 'modifypost',
+                'data' => ['posts' => $posts],
+            ]));
+
+       
         }
+
         public function listPostAdminAction()
         {
            
             $posts = $this->postRepository->findAll();
     
             return new Response($this->view->render([
+                'path'=>'backoffice',
                 'template' => 'postlist',
                 'data' => ['posts' => $posts],
             ]));
             // ajouter post / modifier /supprimer
             }
+       
+                public function deletePostAdminAction()
+                {
+                   
+              
+                    
+                    }
 }

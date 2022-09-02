@@ -1,0 +1,36 @@
+{% extends "/backoffice/base.html.twig" %}
+
+{% block title %}Admin{% endblock %}
+
+<section class="projects-section bg-light" id="projects">
+    <div class="container">
+        <div class="text-danger mb-4 text-center"><h2>Voulez vous vraiment supprimer ce commentaire ?</h2></div>
+        <form class="form-group" method="post" action="#">
+            <div class="row">
+                <div class="col-6 text-right"><button type="submit" class="btn btn-outline-primary" name="cancelDeleteComment">ANNULER</button></div>
+                <div class="col-6 text-left"><button type="submit" class="btn btn-outline-danger" name="validDeleteComment">SUPPRIMER</button></div>
+            </div>
+        
+            <hr class="mb-4 ml-0" />
+            <div class="row">
+            {% if comments %}
+                {% for comment in comments %}
+                <div class="col-lg-6 ">
+                    <div class="row"><h2 class="mb-4">{{ comment.pseudo }}</h2></div>
+                    <div class="row"><p class="text-black-50 ">{{ comment.text}}</p></div>
+                    <div class="row"><p class="text-black-50 ">{{ comment.commentDate|date("d/m/Y") }}</p></div>
+                    <hr class="d-none d-lg-block mb-4 ml-0" />
+                    <div class="row">
+                        <p class="text-danger">Expliquer la raison de la suppression à {{ comment.pseudo}} :
+                    </div>
+                     {% endfor %}
+                      {% endif %}
+                    <textarea class="form-control" name="addMsgEmail" rows="5" placeholder="Un email sera envoyé lors de la suppression à l'auteur du commentaire"></textarea>
+                </div>   
+            </div>
+        </form>
+    </div>
+</section>
+
+        
+{% endblock %}

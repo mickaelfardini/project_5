@@ -51,7 +51,6 @@ final class CommentRepository
             return null;
         }
 
-        
         $comments = [];
         foreach ($commentData as $comment) {   
             $comments[] = new Comment((int)$comment['id_post'], $comment['id_user'], $comment['content']);
@@ -59,9 +58,9 @@ final class CommentRepository
         return $comments;
     }
 
-    //Ajout d'un commentaire 
+    //Ajout d'un commentaire dans le front
 
-    public function create(object $comment): bool
+    public function create()
     {
         $createComment = [];
         $statement = $this->databaseConnection->prepare('INSERT INTO comment ( content, id_user, id_post , created_at) VALUES ("content","id_user","created_at",NOW())');

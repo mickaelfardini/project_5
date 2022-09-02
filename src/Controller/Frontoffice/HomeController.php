@@ -29,11 +29,11 @@ final class HomeController
                 $contactFormValidator = new ContactFormValidator($request);    
                 if ($contactFormValidator->isValid()){
                   var_dump('valide'); //send mail 
-                $this->mail->sendMessage('subject','content', 'toto@toto.fr');
+                $this->mail->sendMessage('subject','content', 'toto@toto.fr');//récuper les info , content : email.twig
                var_dump("mail envoyé");
                 die;
                 $this->session->addFlashes ('success', 'Votre message à été envoyé.');
-                return new Response(($this->view->render('home', ['mail'=>$message])), 200);
+                return new Response(($this->view->render('home', ['mail'=>$message])), 200);// redirection 
               }
             
               $this->session->addFlashes('error', $contactFormValidator->getErrors('error','Formulaire non valide'));
@@ -48,6 +48,7 @@ final class HomeController
           $posts = $this->postRepository->findAll();
     
             return new Response($this->view->render([
+              'path'=>'frontoffice',
                 'template' => 'home',
                 'data' => ['posts' => $posts],
                 //redirection obligaroire à créer

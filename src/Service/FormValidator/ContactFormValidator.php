@@ -12,6 +12,8 @@ final class ContactFormValidator
     private $fields = [];
     private $errors = [];
 
+
+
     private function validatedField(string $field ) : bool
     {
 
@@ -85,12 +87,12 @@ final class ContactFormValidator
             $this->errors[]='Le message n\'est pas valide';
             $return=false;
         }
-
+        
         if (!empty($this->errors)) {
             $this->success['send'] = 'Votre message a bien été envoyé.';
             $return=true;
         }
-
+      
         return $return;
     }
 }

@@ -4,7 +4,7 @@
 
 {% block content %} 
     <h2>Formulaire de connexion</h2>    
-    <form method="POST">
+    <form  action="index.php?p=connect" method="POST">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" >
         <label for="password">Password:</label>
@@ -12,4 +12,5 @@
         <input type="submit" value="Submit">        
     </form>
     <em>jean@free.fr password</em> 
+    
 {% endblock %}
