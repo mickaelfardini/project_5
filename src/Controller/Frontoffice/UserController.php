@@ -26,18 +26,18 @@ final class UserController
 
             if ($loginFormValidator->isValid()) {
                 
-                return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200])); //redirection 
+                return new Response($this->view->header(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
+                Exit(); //redirection 
             }
             $this->session->addFlashes('error', 'Mauvais identifiants');
         }
         return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => []])); 
     }
-
     
     public function logoutAction(): Response
     {
         $this->session_destroy();
-        return new Response($this->view->redirect(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
+        return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
     }
 
     public function SignUpAction(): Response
@@ -48,6 +48,5 @@ final class UserController
             'template' => 'signup'
         ]));    
     }
-
 }
 
