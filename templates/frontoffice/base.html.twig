@@ -35,6 +35,18 @@
                       <li class="nav-item {% if url == 'login' %} active {% endif %}">
                      <a class="nav-link"  id="nav-link4" href="index.php?action=login">Se connecter</a>
                      </li>
+                
+                        {% if auth.user == empty %}
+                            <li><a class="nav-link" href=" index.php?action=login " ><i class="bi bi-person-check" style="font-size: 1.5em"></i></a></li>
+                        {% else %}
+                            <li><a class="nav-link" href="index.php?action=logout" ><i class="bi bi-person-x" style="font-size: 1.5em"></i></a></li>
+                        {% endif %}
+
+                    </ul>
+
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                </nav><!-- .navbar -->
+
                 </ul>
             </div>
         </nav>

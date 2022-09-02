@@ -10,7 +10,8 @@ final class Comment
         private int $id,
         private int $userName, 
         private string $text,
-        private int $idPost
+        private int $idPost,
+        private int $validate,
     ) {
     }
 
@@ -38,5 +39,9 @@ final class Comment
     public function getIdPost(): int
     {
         return $this->idPost;
+    }
+    public function getValidate(): int
+    {
+        return $this->validate;
     }
 }

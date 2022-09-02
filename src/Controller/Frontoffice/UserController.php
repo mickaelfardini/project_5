@@ -33,10 +33,11 @@ final class UserController
         return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => []])); 
     }
 
+    
     public function logoutAction(): Response
     {
-        $this->session->remove('user');
-        return new Response('<h1>Utilisateur déconnecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+        $this->session_destroy();
+        return new Response($this->view->redirect(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
     }
 
     public function SignUpAction(): Response

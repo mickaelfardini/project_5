@@ -1,65 +1,25 @@
-{% extends "/frontoffice/base.html.twig" %}
-
-{% block title %}Login{% endblock %}
-
-{% block content %} 
-
-<section class="login-block">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <form class="md-float-material form-material" action="#" method="POST">
-                    <div class="auth-box card">
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <h3 class="text-center heading" >Vous inscrire </h3>
-                                    
-                                </div>
-                            </div>
-                            <div class="form-group form-primary">
-                              <label for="lastname" class="">Nom</label>
-                              <input type="text" class="form-control" name="last_name" value="" placeholder="Nom" id="last_name"> 
-                            </div>
-
-                            <div class="form-group form-primary">
-                              <label for="firstname" class="">Prénom</label>
-                              <input type="text" class="form-control" name="first_name" value="" placeholder="Prénom" id="first_name"> 
-                            </div>
-
-                            <div class="form-group form-primary">
-                              <label for="email" class="">Email</label>
-                              <input type="email" class="form-control" name="email" value="" placeholder="Email" id="email">
-                               
-                            </div>
-
-                            <div class="form-group form-primary">
-                              <label for="password" class="">Mot de passe</label>
-                              <input type="password" class="form-control" name="password" placeholder="Mot de passe" value="" id="password">
-                              
-                            </div>
-
-                            <div class="form-group form-primary">
-                              <label for="password_confirm" class="">Mot de passe</label>
-                              <input type="password" class="form-control" name="password_confirm" placeholder="Confirmation mot de passe" value="" id="password_confirm">
-                                
-                            </div>
+<?php
 
 
-                            <div class="row">
-                                <div class="col-md-12">
+$fileToImport = "export-03-08-2022.csv";
+$projectId = 1;
 
-                                    <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="S'inscrire">
-                                   <!--  <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20"><i class="fa fa-lock"></i> Signup Now </button> -->
-                                </div>
-                            </div>
-                            <p class="text-inverse text-center">Vous avez déjà un compte? <a href="<?= base_url() ?>auth/login" data-abc="true">Login</a></p>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
+if (($handle = fopen($fileToImport, "r")) !== false) {
 
-{% endblock %}
+echo "INSERT INTO `site_newsletter_users_access` (`project_id`, `subscriber_email`, `is_active`, `is_wrong`, `created_at`, `updated_at`, `unsubscribe_token`) VALUES" . "<br>";
+
+    while (($data = fgetcsv($handle, 1000, ",")) !== false) {
+
+        $token = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
+
+        echo sprintf('(%s, "%s", 1, 0, "%s", "%s", "%s"),',
+            $projectId,
+            trim($data[0]),
+            date("Y-m-d h:i:s"),
+            date("Y-m-d h:i:s"),
+            $token
+        ) . "<br />";
+
+    }
+    fclose($handle);
+}
