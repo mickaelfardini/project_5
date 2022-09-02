@@ -19,19 +19,6 @@
      <section>
         <h3>Commentaires</h3>
         <!-- Ajouter un nouveau commentaire -->
-
-          <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
-                <form id="algin-form">
-                    <div class="form-group">
-                        <h4>Laisser un commentaire</h4>
-                        <label for="message">Message</label>
-                        <textarea name="msg" id=""msg cols="30" rows="5" class="form-control" style="background-color: white;"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" id="post" class="btn">Poster </button>
-                    </div>
-                </form>
-            </div>
         {% if comments %}
             {% for comment in comments %}
                 <p> {#{{ comment.id }}<br>#}
@@ -44,5 +31,26 @@
     </section>
   </div>
 </div>
-        
+ <div class="row">
+        <div class="col my-4">
+        {% if message %}
+            <div class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ message }}
+            </div>
+        {% endif %}
+            <form method="post" action="{{post.id}}/addcomment">
+                <legend>Laisser un commentaire sur cet article</legend>
+                <small class="text-muted">Vous devez <a href="/index.php?action=login">être connecté(e)</a> à votre compte utilisateur pour pouvoir laisser un commentaire.</small>
+                <div class="my-3">
+                    <label for="commentTitle" class="form-label">Titre</label>
+                    <input type="text" class="form-control" id="commentTitle"  name="commentTitle" required>
+                </div>
+                <div class="mb-3">
+                    <label for="commentContent" class="form-label">Votre commentaire</label>
+                    <textarea name="commentContent" class="form-control" id="commentContent" rows="4" maxlength="250"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+        </div>
 {% endblock %}
