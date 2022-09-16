@@ -26,8 +26,7 @@ final class UserController
 
             if ($loginFormValidator->isValid()) {
                 
-                return new Response($this->view->header(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
-                Exit(); //redirection 
+                return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
             }
             $this->session->addFlashes('error', 'Mauvais identifiants');
         }
