@@ -4,22 +4,36 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-
+use App\Service\Http\Session\Session;
 
 class AuthentificationService
 {
-
-
-    public function isAdmin (): bool
+    public function __construct(private Session $session)
     {
-        return !empty($_SESSION['admin']);
+
+    }
+       
+
+    public function isRole(string $role): bool
+    {
+        if(!$this->isConnected()){
+            return false;
+        }
+        $user=$this->session->get('user');
+        if($user->getUserRole()!== $role)
+        {
+            return false;
+        }
+        return true;
     }
 
-    public function disconnect ()
+    public function isConnected(): bool
     {
-        session_destroy();
+        if( $this->session->get('user')=== null){
+            return false;
+        }
+        return true;
     }
-    public function noAdminAccess(){}
 
 // isAdmin () / is...()
 //class qui permet l'autorisation a la page admin
