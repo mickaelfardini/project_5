@@ -7,7 +7,7 @@ namespace  App\Service\FormValidator;
 use App\Service\Http\Request;
 
 
-final class AddPostValidator
+final class ModifyPostFormValidator
 {   
     private $fields = [];
     private $errors = [];

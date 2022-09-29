@@ -7,6 +7,7 @@ declare(strict_types=1);
         use App\Service\Http\Response;
         use App\Model\Repository\PostRepository;
         use App\Model\Repository\CommentRepository;
+        use App\Service\FormValidator\CommentFormValidator;
         use App\Service\Http\Request;
 
         final class CommentAdminController

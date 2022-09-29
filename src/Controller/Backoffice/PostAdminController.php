@@ -6,6 +6,7 @@ namespace  App\Controller\Backoffice;
 use App\View\View;
 use App\Model\Repository\CommentRepository;
 use App\Model\Repository\PostRepository;
+use App\Service\FormValidator\ModifyPostFormValidator;
 use App\Service\Http\Response;
 use App\Service\Http\Session\Session;
 use App\Service\Http\Request;
@@ -18,27 +19,21 @@ final class PostAdminController
     
         }
     
-        public function  addPostAdminAction(/*$username, $title, $chapo, $content*/)
+        public function  addPostAdminAction(Request $request): Response
         {
-            $errors = [];
-    
-            if (empty($username) || !is_string($username)) {
-                $errors['username'] = "username est invalide !";
-            }
-            if (empty($title) || !is_string($title)) {
-                $errors['title'] = "le titre est invalide !";
-            }
-            if (empty($chapo) || !is_string($chapo)) {
-                $errors['chapo'] = "le chapô est invalide !";
-            }
-            if (empty($content) || !is_string($content)) {
-                $errors['content'] = "le contenu ou le contenu est invalide !";
-            }
+            if ($request->getMethod()=== 'POST') {
+                $ModifyPostValidator = new ModifyPostFormValidator($request);    
+                if ($CommentFormValidator->isValid()){
+                    var_dump('valide'); //send mail 
+                    //  return new Response('<h1>Utilisateur connecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+                  }
+                
+                  $this->session->addFlashes('error', $CommentFormValidator->getErrors());
                
-      
             return new Response($this->view->render([
                 'path'=>'backoffice',
                 'template' => 'addpostlist',
+                'data' => ['posts' => $posts],
     
             ]));    
 
