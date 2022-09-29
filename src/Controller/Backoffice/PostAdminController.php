@@ -7,6 +7,7 @@ use App\View\View;
 use App\Model\Repository\CommentRepository;
 use App\Model\Repository\PostRepository;
 use App\Service\FormValidator\ModifyPostFormValidator;
+use App\Service\FormValidator\AddPostFormValidator;
 use App\Service\Http\Response;
 use App\Service\Http\Session\Session;
 use App\Service\Http\Request;
@@ -22,13 +23,12 @@ final class PostAdminController
         public function  addPostAdminAction(Request $request): Response
         {
             if ($request->getMethod()=== 'POST') {
-                $ModifyPostValidator = new ModifyPostFormValidator($request);    
-                if ($CommentFormValidator->isValid()){
-                    var_dump('valide'); //send mail 
-                    //  return new Response('<h1>Utilisateur connecté</h1><h2>faire une redirection vers la page d\'accueil</h2><a href="index.php?action=posts">Liste des posts</a><br>', 200);
+                $AddPostFormValidator = new AddPostFormValidator($request);    
+                if ($AddPostFormValidator->isValid()){
+                    var_dump('votre post est valide'); //creation du post en BDD
                   }
                 
-                  $this->session->addFlashes('error', $CommentFormValidator->getErrors());
+                  $this->session->addFlashes('error', $AddPostFormValidator->getErrors());
                
             return new Response($this->view->render([
                 'path'=>'backoffice',
@@ -38,6 +38,7 @@ final class PostAdminController
             ]));    
 
     }
+}
     public function modifyPostAdminAction()
     {
        
