@@ -28,11 +28,11 @@ final class HomeController
              if ($request->getMethod()=== 'POST') {
                 $contactFormValidator = new ContactFormValidator($request);    
                 if ($contactFormValidator->isValid()){
-                  var_dump('valide'); //send mail 
+                 // var_dump('valide'); //send mail 
                 $this->mail->sendMessage('subject','content', 'toto@toto.fr');//récuper les info , content : email.twig
                var_dump("mail envoyé");
                 die;
-                $this->session->addFlashes ('success', 'Votre message à été envoyé.');
+                $this->session->addFlashes ('error', ['Mauvais identifiants']);
                 return new Response(($this->view->render('home', ['mail'=>$message])), 200);// redirection 
               }
             

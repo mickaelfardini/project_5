@@ -21,23 +21,22 @@ final class UserController
     public function loginAction(Request $request): Response
     {
        
-        if ($request->getMethod() === 'POST') {
-            $loginFormValidator = new LoginFormValidator($request, $this->userRepository, $this->session);
+       if ($request->getMethod() === 'POST') {
+        
+        $loginFormValidator = new LoginFormValidator($request, $this->userRepository, $this->session);
 
             if ($loginFormValidator->isValid()) {
                 
-                return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
+              $response = new Response();
+              $response->redirect('/');
             }
-            $this->session->addFlashes('error', 'Mauvais identifiants');
+            $this->session->addFlashes('error', ['Mauvais identifiants']);
+            //var_dump($this->session->getFlashes());
+            //die;
         }
         return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => []])); 
     }
-    
-    public function logoutAction(): Response
-    {
-        $this->session_destroy();
-        return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
-    }
+
 
     public function SignUpAction(): Response
     {

@@ -16,7 +16,7 @@ use App\Service\FormValidator\SignUpFormValidator;
 
 final class UserAdminController
     {
-        public function __construct(private PostRepository $postRepository, private View $view, private Session $session )
+        public function __construct(private UserRepository $userRepository, private View $view, private Session $session )
         {
     
         }

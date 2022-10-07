@@ -20,7 +20,12 @@ final class UserRepository
         $req->execute($criteria);
         $data = $req->fetch();
        
-        return $data === null ? null : new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);
+        return $data === false ? null : new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);
+        /*if ($data === null)
+        {
+            return null;
+        }
+        return new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);*/
     }
 
     //Ajouter un utilisateur

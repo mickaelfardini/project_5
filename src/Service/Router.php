@@ -123,7 +123,7 @@ final class Router
         $postRepo = new PostRepository($this->database);
         $controller = new PostAdminController($postRepo, $this->view, $this->session);
 
-        return $controller->addPostAdminAction();
+        return $controller->addPostAdminAction($this->request);
         
     } elseif ($action === 'adminmodifypost') {
         $postRepo = new PostRepository($this->database);
