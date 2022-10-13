@@ -6,9 +6,12 @@ namespace App\Model\Repository;
 
 use App\Service\Database;
 use App\Model\Entity\User;
+use PDO;
 
 final class UserRepository
 {
+    private PDO $databaseConnection;
+
     public function __construct(private Database $database)
     {
         $this->databaseConnection = $database->getPDO();
@@ -20,35 +23,39 @@ final class UserRepository
         $req->execute($criteria);
         $data = $req->fetch();
        
-        return $data === null ? null : new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);
+        return !$data ? null : new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);
     }
 
     //Ajouter un utilisateur
 
-    public function createUser() {
-        $newUser = [];
-       // hachage password ???
-        $req = $this->databaseConnection->prepare('INSERT INTO user( username, email, password ) VALUES ( "username", "email" , "password")');
-        $req->execute();
+    public function createUser($data) {
+        $vars = [
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => password_hash($data["password"], PASSWORD_BCRYPT),
+        ];
+        $req = $this->databaseConnection->prepare("INSERT INTO user( username, email, password ) VALUES (:username, :email, :password)");
+
     
-        return $createUser;
+        return $req->execute($vars);
     }
 
     //Vérification utilisateur existant??? 
-    public function login ($username, $password){
+    public function login ($data): mixed
+    {
         $req = $this->databaseConnection->prepare('SELECT * FROM user WHERE username=:username LIMIT 1');
-        $req->execute(array(':username'=> $username));
+        $req->execute(array(':username'=> $data['username']));
         $userFound = $req->fetch(PDO::FETCH_ASSOC);
-        $verifyPassword = password_verify($password,$username['password']);
+        $verifyPassword = password_verify($data['password'], $userFound['password']);
 
-        if (password_needs_rehash($username['password'], $this->encrypt)) {
-            $password = password_hash($user['password'], $this->encrypt);
-            $req = $this->getDb()->prepare("UPDATE username SET password = :password WHERE id = :id");
-            $req->execute(array(':password' => $password, ':id' => $username['id']));
-        }
+//        if (password_needs_rehash($username['password'], $this->encrypt)) {
+//            $password = password_hash($user['password'], $this->encrypt);
+//            $req = $this->getDb()->prepare("UPDATE username SET password = :password WHERE id = :id");
+//            $req->execute(array(':password' => $password, ':id' => $username['id']));
+//        }
 
         if ($verifyPassword) {
-            return $username;
+            return $userFound;
         }
         
         return false;

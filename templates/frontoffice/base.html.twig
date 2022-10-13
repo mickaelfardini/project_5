@@ -23,19 +23,28 @@
     </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                  <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if url =='home' %} active {% endif %}">
-                    <a class="nav-link" id="nav-link1" href="/">Accueil</a>
-                    </li>
+                     <li class="nav-item {% if url =='home' %} active {% endif %}">
+                         <a class="nav-link" id="nav-link1" href="/">Accueil</a>
+                     </li>
                      <li class="nav-item {% if url == 'posts' %} active {% endif %}">
-                     <a class="nav-link"  id="nav-link2" href="index.php?action=posts">Posts</a>
+                         <a class="nav-link"  id="nav-link2" href="index.php?action=posts">Posts</a>
                      </li>
-                      <li class="nav-item {% if url == 'signin' %} active {% endif %}">
-                     <a class="nav-link"  id="nav-link3" href="index.php?action=signup">S'inscrire</a>
-                     </li>
-                      <li class="nav-item {% if url == 'login' %} active {% endif %}">
-                     <a class="nav-link"  id="nav-link4" href="index.php?action=login">Se connecter</a>
-                     </li>
-                
+                     {% if not user.email %}
+                         <li class="nav-item {% if url == 'signin' %} active {% endif %}">
+                             <a class="nav-link"  id="nav-link3" href="index.php?action=signup">S'inscrire </a>
+                         </li>
+                         <li class="nav-item {% if url == 'login' %} active {% endif %}">
+                             <a class="nav-link"  id="nav-link4" href="index.php?action=login">Se connecter</a>
+                         </li>
+                     {% else %}
+                         <li class="nav-item {% if url == 'account' %} active {% endif %}">
+                             <a class="nav-link"  id="nav-link4" href="index.php?action=account">{{ user.username }}</a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link"  id="nav-link4" href="index.php?action=logout">Déconnexion</a>
+                         </li>
+                     {% endif %}
+
                         {% if auth.user == empty %}
                             <li><a class="nav-link" href=" index.php?action=login " ><i class="bi bi-person-check" style="font-size: 1.5em"></i></a></li>
                         {% else %}

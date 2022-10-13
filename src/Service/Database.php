@@ -10,14 +10,16 @@ use PDO;
 
 class Database
 {
-  //private string $dbname = 'projet_5';
-  //private string $host = 'localhost';
-  //private string $username = 'root';
-  // private string $password = 'root';
-  //private int $port = '8889';
+  private string $dbname = 'projet_5';
+  private string $host = 'localhost';
+  private string $username = 'fx';
+  private string $password = 'QaaUB1PWRs386Q9v';
+  private string $port = '3306';
   private PDO $pdo;
 
-  public function __construct(private string $dbname, private string $host, private string $username, private string $password, private int $port)
+  public function __construct()
+//      private string $dbname, private string $host, private string $username, private string $password, private int $port)
+
   {
     //$this->dbname = $dbname;
     //$this->host = $host;

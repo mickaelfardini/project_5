@@ -28,12 +28,10 @@ final class SignUpFormValidator
 
         $user = $this->userRepository->findOneBy(['email' => $this->infoUser['email']]);
 
-        if (!$user instanceof (User::class) || $this->infoUser['password'] !== $user->getPassword()) {
-            return false;
+        if (!$user instanceof (User::class)) {
+            return true;
         }
 
-        $this->session->set('user', $user);
-
-        return true;
+        return false;
     }
 }

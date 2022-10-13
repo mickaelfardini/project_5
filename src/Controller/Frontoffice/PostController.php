@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace  App\Controller\Frontoffice;
 
+use App\Service\Http\Session\Session;
 use App\View\View;
 use App\Service\Http\Response;
 use App\Model\Repository\PostRepository;
 use App\Model\Repository\CommentRepository;
 use App\Service\FormValidator\ContactFormValidator;
 use App\Service\Http\Request;
+use Symfony\Component\Routing\Annotation\Route;
+
 final class PostController
 {
-    public function __construct(private PostRepository $postRepository, private View $view)
+    public function __construct(private PostRepository $postRepository, private View $view, private Session $session)
     {
     }
 
@@ -31,6 +34,7 @@ final class PostController
                 'data' => [
                     'post' => $post,
                     'comments' => $comments,
+                    'user' => $this->session->get('user')
                     ],
                 ],
             ));
@@ -39,8 +43,9 @@ final class PostController
         return $response;
     }
 
+    #[Route('/posts', methods: ['GET'])]
     public function displayAllAction(Request $request): Response
-    {   
+    {
         if ($request->getMethod()=== 'POST') {
             $CommentFormValidator = new CommentFormValidator($request);    
             if ($CommentFormValidator->isValid()){
@@ -56,7 +61,7 @@ final class PostController
         return new Response($this->view->render([
             'path'=>'frontoffice',
             'template' => 'posts',
-            'data' => ['posts' => $posts],
+            'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
         ]));
     }
 }

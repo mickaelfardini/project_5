@@ -7,7 +7,7 @@ use App\Model\Entity\User;
 
 final class Session
 {
-    private array $sessionParamBag; 
+    private array $sessionParamBag;
 
     public function __construct()
     {
@@ -22,7 +22,7 @@ final class Session
 
     public function get(string $name): mixed
     {
-        return isset($this->sessionParamBag[$name]) ? $this->sessionParamBag[$name] : null;
+        return $this->sessionParamBag[$name] ?? null;
     }
 
     public function getAll(): ?array
@@ -35,7 +35,6 @@ final class Session
         unset($this->sessionParamBag[$name]);
     }
 
-   
     public function addFlashes(string $type, array $message ): void
     {
         $this->set('flashes', [$type => $message]);
@@ -48,5 +47,4 @@ final class Session
 
         return $flashes;
     }
-    
 }

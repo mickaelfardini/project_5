@@ -1,25 +1,18 @@
-<?php
+{% extends "/frontoffice/base.html.twig" %}
 
+{% block title %}Register{% endblock %}
 
-$fileToImport = "export-03-08-2022.csv";
-$projectId = 1;
+{% block content %}
+    <h2>Formulaire d'inscription</h2>
+    <form  action="index.php?action=signup" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" >
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" >
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" >
+        <input type="submit" value="Submit">
+    </form>
+    <em>jean@free.fr password</em>
 
-if (($handle = fopen($fileToImport, "r")) !== false) {
-
-echo "INSERT INTO `site_newsletter_users_access` (`project_id`, `subscriber_email`, `is_active`, `is_wrong`, `created_at`, `updated_at`, `unsubscribe_token`) VALUES" . "<br>";
-
-    while (($data = fgetcsv($handle, 1000, ",")) !== false) {
-
-        $token = rtrim(strtr(base64_encode(random_bytes(32)), '+/', '-_'), '=');
-
-        echo sprintf('(%s, "%s", 1, 0, "%s", "%s", "%s"),',
-            $projectId,
-            trim($data[0]),
-            date("Y-m-d h:i:s"),
-            date("Y-m-d h:i:s"),
-            $token
-        ) . "<br />";
-
-    }
-    fclose($handle);
-}
+{% endblock %}

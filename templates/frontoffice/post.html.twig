@@ -41,7 +41,9 @@
         {% endif %}
             <form method="post" action="{{post.id}}/addcomment">
                 <legend>Laisser un commentaire sur cet article</legend>
-                <small class="text-muted">Vous devez <a href="/index.php?action=login">être connecté(e)</a> à votre compte utilisateur pour pouvoir laisser un commentaire.</small>
+                {% if not user.email %}
+                    <small class="text-muted">Vous devez <a href="/index.php?action=login">être connecté(e)</a> à votre compte utilisateur pour pouvoir laisser un commentaire.</small>
+                {% else %}
                 <div class="my-3">
                     <label for="commentTitle" class="form-label">Titre</label>
                     <input type="text" class="form-control" id="commentTitle"  name="commentTitle" required>
@@ -51,6 +53,7 @@
                     <textarea name="commentContent" class="form-control" id="commentContent" rows="4" maxlength="250"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Envoyer</button>
+                {% endif %}
             </form>
         </div>
 {% endblock %}

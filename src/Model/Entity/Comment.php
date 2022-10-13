@@ -11,7 +11,7 @@ final class Comment
         private int $userName, 
         private string $text,
         private int $idPost,
-        private int $validate,
+        private int $validate = 1,
     ) {
     }
 

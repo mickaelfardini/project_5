@@ -62,9 +62,9 @@ final class AddPostValidator
             $return=false;
         }
     
-        if ( !$this->validatedField($this->fields['message'])){
+        if ( !$this->validatedField($this->fields['content'])){
             //$this->session->addFlashes('error','Le message n\'est pas valide');
-            $this->errors[]='Le message n\'est pas valide';
+            $this->errors[]='Le contenu n\'est pas valide';
             $return=false;
          
         }
