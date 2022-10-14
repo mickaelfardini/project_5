@@ -28,14 +28,12 @@ final class HomeController
              if ($request->getMethod()=== 'POST') {
                 $contactFormValidator = new ContactFormValidator($request);    
                 if ($contactFormValidator->isValid()){
-                 // var_dump('valide'); //send mail 
+                  var_dump('valide'); //send mail 
                 $this->mail->sendMessage('subject','content', 'toto@toto.fr');//récuper les info , content : email.twig
-               //var_dump("mail envoyé");
-               // die;
-                $this->session->addFlashes ('error', ['Mauvais identifiants']);
-                header('home',true,200);
-                return new Response(($this->view->render('home', ['mail'=>$message])), 200);
-                //return new Response (($this->view->header('Location:','home')))   ;// redirection
+               var_dump("mail envoyé");
+                die;
+                $this->session->addFlashes ('success', 'Votre message à été envoyé.');
+                return new Response(($this->view->render('home', ['mail'=>$message])), 200);// redirection 
               }
             
               $this->session->addFlashes('error', $contactFormValidator->getErrors('error','Formulaire non valide'));
@@ -52,11 +50,10 @@ final class HomeController
             return new Response($this->view->render([
               'path'=>'frontoffice',
                 'template' => 'home',
-                'data' => ['posts' => $posts],
+                'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
                 //redirection obligaroire à créer
                 //$this->response = ['path'=> ''],
                // 'data' => ['posts' => $posts]
-               
     
             ]));    
         }

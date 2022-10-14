@@ -30,7 +30,6 @@ final class Router
 
     public function __construct(private Request $request)
     {
-        
         $this->database = new Database('projet_5','localhost','root','',3306);
         
         $this->session = new Session();
@@ -57,9 +56,7 @@ final class Router
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
-
             return $controller->displayAllAction($this->request);
-
         } elseif ($action === 'home') {
             
                 $postRepo = new PostRepository($this->database);
@@ -73,14 +70,14 @@ final class Router
         } elseif ($action === 'posts') {
             
             $postRepo = new PostRepository($this->database);
-            $controller = new PostController($postRepo, $this->view);
+            $controller = new PostController($postRepo, $this->view, $this->session);
 
             return $controller->displayAllAction($this->request);
 
         } elseif ($action === 'post' && $this->request->hasQuery('id_post')) {
          
             $postRepo = new PostRepository($this->database);
-            $controller = new PostController($postRepo, $this->view);
+            $controller = new PostController($postRepo, $this->view, $this->session);
 
             $commentRepo = new CommentRepository($this->database);
 
@@ -114,30 +111,39 @@ final class Router
             return $controller->signupAction($this->request);
 
         } elseif ($action === 'adminpost') {
-        $postRepo = new PostRepository($this->database);
-        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+            $postRepo = new PostRepository($this->database);
+            $controller = new PostAdminController($postRepo, $this->view, $this->session);
 
-        return $controller->listPostAdminAction();
+            return $controller->listPostAdminAction();
 
-    }  elseif ($action === 'adminaddpost') {
-        $postRepo = new PostRepository($this->database);
-        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+        }  elseif ($action === 'adminaddpost') {
+            $postRepo = new PostRepository($this->database);
+            $controller = new PostAdminController($postRepo, $this->view, $this->session);
 
-        return $controller->addPostAdminAction($this->request);
-        
-    } elseif ($action === 'adminmodifypost') {
-        $postRepo = new PostRepository($this->database);
-        $controller = new PostAdminController($postRepo, $this->view, $this->session);
+            return $controller->addPostAdminAction($this->request);
 
-        return $controller->modifyPostAdminAction();
-        
-    } elseif ($action === 'admincomment') {
-        $commentRepo = new CommentRepository($this->database);
-        $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
+        } elseif ($action === 'adminmodifypost') {
+            $postRepo = new PostRepository($this->database);
+            $controller = new PostAdminController($postRepo, $this->view, $this->session);
 
-        return $controller->addCommentAdminAction();
+            return $controller->modifyPostAdminAction($this->request);
 
-}
+        } elseif ($action === 'adminaddcomment') {
+            $commentRepo = new CommentRepository($this->database);
+            $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
+
+            return $controller->addCommentAdminAction();
+        } elseif ($action === 'admincomment') {
+            $commentRepo = new CommentRepository($this->database);
+            $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
+
+            return $controller->listCommentAction();
+        } elseif ($action === 'admindeletecomment') {
+            $commentRepo = new CommentRepository($this->database);
+            $controller = new CommentAdminController($commentRepo, $this->view, $this->session);
+
+            return $controller->deleteCommentAction($this->request);
+        }
         return new Response("Error 404 - cette page n'existe pas<br><a href='index.php?action=posts'>Aller Ici</a>", 404);
     }
 }

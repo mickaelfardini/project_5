@@ -14,7 +14,7 @@
         <div class="control-group">
           <div class="form-group controls">
             <label for="title">Titre</label>
-            <input name="title" value="" type="text" class="form-control" placeholder="Titre" >
+            <input name="title" value="{{ post.title }}" type="text" class="form-control" placeholder="Titre" >
             
           </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="control-group">
           <div class="form-group controls">
             <label for="chapo">Chapo</label>
-            <input name="chapo" value="" type="text" class="form-control" placeholder="Chapo" >
+            <input name="chapo" value="{{ post.chapo }}" type="text" class="form-control" placeholder="Chapo" >
             
           </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="control-group">
           <div class="form-group controls">
             <label for="content">Contenu</label>
-            <textarea name="content" rows="10" type="text" class="form-control" placeholder="Content" ></textarea>
+            <textarea name="content" rows="10" type="text" class="form-control" placeholder="Content" >{{ post.content }}</textarea>
           
           </div>
         </div>

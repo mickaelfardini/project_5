@@ -23,19 +23,28 @@
     </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                  <ul class="navbar-nav ml-auto">
-                    <li class="nav-item {% if url =='home' %} active {% endif %}">
-                    <a class="nav-link" id="nav-link1" href="/">Accueil</a>
-                    </li>
+                     <li class="nav-item {% if url =='home' %} active {% endif %}">
+                         <a class="nav-link" id="nav-link1" href="/">Accueil</a>
+                     </li>
                      <li class="nav-item {% if url == 'posts' %} active {% endif %}">
-                     <a class="nav-link"  id="nav-link2" href="index.php?action=posts">Posts</a>
+                         <a class="nav-link"  id="nav-link2" href="index.php?action=posts">Posts</a>
                      </li>
-                      <li class="nav-item {% if url == 'signin' %} active {% endif %}">
-                     <a class="nav-link"  id="nav-link3" href="index.php?action=signup">S'inscrire</a>
-                     </li>
-                      <li class="nav-item {% if url == 'login' %} active {% endif %}">
-                     <a class="nav-link"  id="nav-link4" href="index.php?action=login">Se connecter</a>
-                     </li>
-                
+                     {% if not user.email %}
+                         <li class="nav-item {% if url == 'signin' %} active {% endif %}">
+                             <a class="nav-link"  id="nav-link3" href="index.php?action=signup">S'inscrire </a>
+                         </li>
+                         <li class="nav-item {% if url == 'login' %} active {% endif %}">
+                             <a class="nav-link"  id="nav-link4" href="index.php?action=login">Se connecter</a>
+                         </li>
+                     {% else %}
+                         <li class="nav-item {% if url == 'account' %} active {% endif %}">
+                             <a class="nav-link"  id="nav-link4" href="index.php?action=account">{{ user.username }}</a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link"  id="nav-link4" href="index.php?action=logout">Déconnexion</a>
+                         </li>
+                     {% endif %}
+
                         {% if auth.user == empty %}
                             <li><a class="nav-link" href=" index.php?action=login " ><i class="bi bi-person-check" style="font-size: 1.5em"></i></a></li>
                         {% else %}
@@ -52,27 +61,28 @@
         </nav>
     {% endblock navigation %}
      {% block title %}{% endblock title %}
-         <main>    
+    {% block content %}    
+    {% block all_posts %}
+    {% endblock all_posts  %}
+        <main>    
             {% for type,messages in flashes %}      
             {% for message in messages %} 
                 <h2 class="{{type}}"> {{ message }} </h2>
 
             {% endfor %}
             {% endfor %}
-       
-         {% block content %}    
-        
-         {% endblock content %}  
-      </main>
-           <!-- Footer --> 
-         <footer class="footer text-center" id="footer">
+        </main>
+      <!-- Footer --> 
+
+        <footer class="footer text-center" id="footer">
              <span class="text-theme-primary" id="footer_sentence">Projet 5 parcours développeur d'application PHP/Symfony chez OpenClassrooms.</span>
                     <br>
                     <a class="btn text-theme-primary mb-1" href="https://github.com/Nsahed"><i class="fab fa-github"></i> Dépôt Github</a>
                     <a class="btn  text-theme-primary mb-1" href="https://www.linkedin.com/in/nacerasahed"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
                     <a class="btn  text-theme-primary mb-1" href=""><i class=""></i> Admin</a>
             <h6>Copyright Sahed Nacera</h6>
-        </footer>        
+        </footer>  
+     {% endblock content %}        
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -21,30 +21,40 @@ final class UserController
     public function loginAction(Request $request): Response
     {
        
-       if ($request->getMethod() === 'POST') {
-        
-        $loginFormValidator = new LoginFormValidator($request, $this->userRepository, $this->session);
+        if ($request->getMethod() === 'POST') {
+            $loginFormValidator = new LoginFormValidator($request, $this->userRepository, $this->session);
 
-            if ($loginFormValidator->isValid()) {
-                
-              $response = new Response();
-              $response->redirect('/');
+            $user = $this->userRepository->login($request->getAllRequest());
+            if ($user) {
+                $this->session->set('user', $user);
+                return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => ['user' => $this->session->get('user')], 200]));
             }
             $this->session->addFlashes('error', ['Mauvais identifiants']);
-            //var_dump($this->session->getFlashes());
-            //die;
+            var_dump('bad login');
         }
-        return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => []])); 
+        return new Response($this->view->render(['path'=>'frontoffice','template' => 'login', 'data' => ['user' => $this->session->get('user')]]));
+    }
+    
+    public function logoutAction(): Response
+    {
+        session_destroy();
+        return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => [], 200]));
     }
 
-
-    public function SignUpAction(): Response
+    public function signUpAction(Request $request): Response
     {
         $this->session->remove('user');
+        if ($request->getMethod() === 'POST') {
+            $signupFormValidator = new SignUpFormValidator($request, $this->userRepository, $this->session);
+            if ($signupFormValidator->isValid()) {
+                $this->userRepository->createUser($request->getAllRequest());
+                return new Response($this->view->render(['path'=>'frontoffice','template' => 'home', 'data' => ['user' => $this->session->get('user')], 200]));
+            }
+            $this->session->addFlashes('error', ['Mauvais identifiants']);
+        }
         return new Response($this->view->render([
             'path'=>'frontoffice',
             'template' => 'signup'
         ]));    
     }
 }
-
