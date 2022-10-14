@@ -4,51 +4,40 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-
+use App\Service\Http\Session\Session;
 
 class AuthentificationService
 {
-
-
-    public function setAdimSession () {}
-
-    public function noAdminAccess(){}
-
-// isAdmin () / is...()
-//class qui permet l'autorisation a la page admin
-public function isAdmin(User $user): bool
+    public function __construct(private Session $session)
     {
-        if ($user->getRole() === false || $user->getRole() === 0 || $user->getROle() === '0') {
+
+    }
+       
+
+    public function isRole(string $role): bool
+    {
+        if(!$this->isConnected()){
+            return false;
+        }
+        $user=$this->session->get('user');
+        if($user->getUserRole()!== $role)
+        {
             return false;
         }
         return true;
     }
 
-    public function isCurrentUserAdmin(): bool
+    public function isConnected(): bool
     {
-        if ($this->isLoggedIn()) {
-            $user = $this->userManager->read($this->session->get('id_user'));
-            $role = $user->getRole();
-            if ($role === false || $role === 0 || $role === '0') {
-                return false;
-            }
-            return true;
+        if( $this->session->get('user')=== null){
+            return false;
         }
-        return false;
+        return true;
     }
 
-    public function getCurrentUser(): User
-    {
-        return $this->userManager->read($this->session->get('id_user'));
-    }
-
-    public function isDisabled(User $user): bool
-    {
-        if ($user->getDeleted() === true || $user->getDeleted() === 1 ||  $user->getDeleted() === '1') {
-            return true;
-        }
-        return false;
-    }
+// isAdmin () / is...()
+//class qui permet l'autorisation a la page admin
+   
 }
 
 

@@ -25,12 +25,12 @@
               <tbody>
               {% for comment in comments %}
                   <tr> 
-                      <td>{{ comment.pseudo }}</td>
-                      <td>{{ comment.text }}</td>
-                      <td></td>
+                      <td>{{ comment.id_user }}</td>
+                      <td>{{ comment.content|e }}</td>
+                      <td>{{ comment.created_at }}</td>
                       <td>
-                      <a class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" href="">Valider</a>
-                      <a class="btn btn-sm btn-danger shadow-sm" data-toggle="modal" href="">Supprimer</a>
+                          <a class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" href="">Valider</a>
+                          <a class="btn btn-sm btn-danger shadow-sm" href="?action=admindeletecomment&comment={{ comment.id_comment }}">Supprimer</a>
                       </td>
                   </tr>
                   {% endfor %}

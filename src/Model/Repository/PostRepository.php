@@ -57,13 +57,17 @@ final class PostRepository
     
     //Ajout d'un post
 
-    public function create(object $post): bool
+    public function create(array $post, array $user): bool
     {
-        $createPost = [];
-        $req = $this->databaseConnection->prepare('INSERT INTO post (title, chapo , created_at,update_at, content , id_user ) VALUES ("test","test chapo",NOW(),NOW(),"hellotest","id_user")');
-        $req->execute();
+        $createPost = [
+            'title'     => $post['title'],
+            'chapo'     => $post['chapo'],
+            'content'   => $post['content'],
+            'id_user'   => $user['id_user'],
+        ];
+        $req = $this->databaseConnection->prepare('INSERT INTO post (title, chapo , created_at,update_at, content , id_user ) VALUES (:title, :chapo, NOW(), NOW(), :content, :id_user)');
 
-        return $createPost ;
+        return $req->execute($createPost);
     }
 
     // Suppression d'un post
@@ -78,15 +82,17 @@ final class PostRepository
 
     //Modifier un post 
 
-    public function modifyPost() {
-        $modifyPost = [];
-        $req = $this->databaseConnection->prepare('UPDATE post SET title =, chapo , created_at,update_at, content , id_user  WHERE id=:id');
-        $req->execute();
+    public function modifyPost($data, $id) {
+        $modifyPost = [
+            'title' => $data['title'],
+            'chapo' => $data['chapo'],
+            'content' => $data['content'],
+            'id_post' => $id
+        ];
+        $req = $this->databaseConnection->prepare('UPDATE post SET title = :title, chapo = :chapo, update_at = NOW(), content = :content WHERE id_post = :id_post');
 
-        return $modifyPost;
+        return $req->execute($modifyPost);
     }
  
 }
-
-
 

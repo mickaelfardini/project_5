@@ -28,12 +28,12 @@ final class CommentRepository
         }
 
       
-        $comments = [];
-        foreach ($data as $comment) {
-            $comments[] = new Comment((int)$comment['id_post'], $comment['id_user'], $comment['content'], (int)$comment['id_post']);
-        }
+//        $comments = [];
+//        foreach ($data as $comment) {
+//            $comments[] = new Comment((int)$comment['id_comment'], $comment['id_user'], $comment['content'], (int)$comment['id_post']);
+//        }
 
-        return $comments;
+        return $data;
     }
 
 
@@ -41,9 +41,8 @@ final class CommentRepository
 
     public function findAll(): ?array
     {
-        $commentData = [];
         //$this->databaseConnection->getPDO();
-        $req = $this->databaseConnection->prepare('SELECT comment.* , user.id_user from comment inner join user ON user.id_user=comment.id_user where id_post=:id_post ');
+        $req = $this->databaseConnection->prepare('SELECT comment.* , user.id_user from comment inner join user ON user.id_user=comment.id_user');
         $req->execute();
         $commentData = $req->fetchAll();
        
@@ -51,11 +50,11 @@ final class CommentRepository
             return null;
         }
 
-        $comments = [];
-        foreach ($commentData as $comment) {   
-            $comments[] = new Comment((int)$comment['id_post'], $comment['id_user'], $comment['content']);
-        }
-        return $comments;
+//        $comments = [];
+//        foreach ($commentData as $comment) {
+//            $comments[] = new Comment((int)$comment['id_comment'], $comment['id_user'], $comment['content'], $comment['id_post']);
+//        }
+        return $commentData;
     }
 
     //Ajout d'un commentaire dans le front
@@ -71,12 +70,10 @@ final class CommentRepository
 
     // Suppression d'un commentaire
 
-    public function delete($id_comment)
+    public function delete($id_comment): bool
     {
         $statement = $this->databaseConnection->prepare('DELETE FROM comment WHERE id_comment = ?');
-        $commentDelete = $statement->execute(array($id_comment));
-
-        return $commentDelete;
+        return $statement->execute(array($id_comment));
     }
 
    

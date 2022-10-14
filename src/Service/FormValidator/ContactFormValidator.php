@@ -86,6 +86,8 @@ final class ContactFormValidator
             //$this->session->addFlashes('error','Le message n\'est pas valide');
             $this->errors[]='Le message n\'est pas valide';
             $return=false;
+            // if {!$lastname|| !$firstname || !$email || !$subject || !$message}
+            // $this->errors[]='Veuillez remplir tous les champs du formulaire correctement';
         }
         
         if (!empty($this->errors)) {

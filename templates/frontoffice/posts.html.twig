@@ -8,13 +8,17 @@
 
 {% block content %} 
     {% for post in posts %}
-        <article id="postContent">
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.chapo}}</p>
-            <p>Date de création: {{ post.createdtAt | date('d/m/Y')}}</p>
-            <p>Date de modification: {{ post.updateAt | date('d/m/Y')}}</p>
-            <a href="index.php?action=post&id_post={{post.id}}">Lire le post</a>
-            <hr>
-        </article>
+    <div id="content" class="container mb-5">
+        <main class="pb-5">
+            <article class="my-5 text-center" id="postContent">
+                <h2 class="display-2">{{ post.title }}</h2>
+                <p class="card-img-top mb-5">{{ post.chapo}}</p>
+                <p>Date de création: {{ post.createdtAt | date('d/m/Y')}}</p>
+                <p>Date de modification: {{ post.updateAt | date('d/m/Y')}}</p>
+                <a href="index.php?action=post&id_post={{post.id}}">Lire le post</a>
+                 <hr>
+            </article>
+        </main>
+    </div>       
     {% endfor %}
 {% endblock %}

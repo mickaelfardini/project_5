@@ -50,7 +50,7 @@ final class HomeController
             return new Response($this->view->render([
               'path'=>'frontoffice',
                 'template' => 'home',
-                'data' => ['posts' => $posts],
+                'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
                 //redirection obligaroire à créer
                 //$this->response = ['path'=> ''],
                // 'data' => ['posts' => $posts]
