@@ -56,9 +56,7 @@ final class Router
             
             $postRepo = new PostRepository($this->database);
             $controller = new PostController($postRepo, $this->view);
-
             return $controller->displayAllAction($this->request);
-
         } elseif ($action === 'home') {
             
                 $postRepo = new PostRepository($this->database);

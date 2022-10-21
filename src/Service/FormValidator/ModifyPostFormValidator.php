@@ -7,7 +7,7 @@ namespace  App\Service\FormValidator;
 use App\Service\Http\Request;
 
 
-final class AddPostValidator
+final class ModifyPostFormValidator
 {   
     private $fields = [];
     private $errors = [];
@@ -62,9 +62,9 @@ final class AddPostValidator
             $return=false;
         }
     
-        if ( !$this->validatedField($this->fields['content'])){
+        if ( !$this->validatedField($this->fields['message'])){
             //$this->session->addFlashes('error','Le message n\'est pas valide');
-            $this->errors[]='Le contenu n\'est pas valide';
+            $this->errors[]='Le message n\'est pas valide';
             $return=false;
          
         }
