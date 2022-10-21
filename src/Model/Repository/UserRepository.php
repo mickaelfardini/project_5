@@ -17,18 +17,27 @@ final class UserRepository
         $this->databaseConnection = $database->getPDO();
     }
 
+    public function findAll(): ?array
+    {
+        $req=$this->databaseConnection->prepare('select * from user');
+        $req->execute();
+
+        return $req->fetchAll();
+    }
+
     public function findOneBy(array $criteria, array $orderBy = null): ?User
     {
         $req=$this->databaseConnection->prepare('select * from user where email=:email');
         $req->execute($criteria);
         $data = $req->fetch();
-       
+
         return !$data ? null : new user((int)$data['id_user'], $data['username'], $data['email'], $data['password'], $data['user_role']);
     }
 
     //Ajouter un utilisateur
 
-    public function createUser($data) {
+    public function createUser($data): bool
+    {
         $vars = [
             'username' => $data['username'],
             'email' => $data['email'],
@@ -38,6 +47,22 @@ final class UserRepository
 
     
         return $req->execute($vars);
+    }
+
+    public function editUser($data, $id, $user): bool
+    {
+        $vars = [
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'id_user' => $user['id_user']
+        ];
+        if ($id === $user['id_user']) {
+            $req = $this->databaseConnection->prepare('UPDATE user SET username = :username, email = :email WHERE id_user = :id_user');
+
+            return $req->execute($vars);
+        }
+
+        return false;
     }
 
     //Vérification utilisateur existant??? 
@@ -59,6 +84,12 @@ final class UserRepository
         }
         
         return false;
+    }
+
+    public function delete($id_user): bool
+    {
+        $statement = $this->databaseConnection->prepare('DELETE FROM user WHERE id_user = ?');
+        return $statement->execute(array($id_user));
     }
     
 }

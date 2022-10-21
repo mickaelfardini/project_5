@@ -19,6 +19,7 @@
                   <th scope="col">Auteur</th>
                   <th scope="col">Contenu</th>
                   <th scope="col">Date de création</th>
+                  <th scope="col">Valide</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -28,8 +29,9 @@
                       <td>{{ comment.id_user }}</td>
                       <td>{{ comment.content|e }}</td>
                       <td>{{ comment.created_at }}</td>
+                      <td>{{ comment.valide }}</td>
                       <td>
-                          <a class="btn btn-sm btn-primary shadow-sm" data-toggle="modal" href="">Valider</a>
+                          <a class="btn btn-sm btn-primary shadow-sm" href="?action=adminvalidatecomment&comment={{ comment.id_comment }}">Valider</a>
                           <a class="btn btn-sm btn-danger shadow-sm" href="?action=admindeletecomment&comment={{ comment.id_comment }}">Supprimer</a>
                       </td>
                   </tr>

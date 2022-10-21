@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace  App\Controller\Backoffice;
 
+use App\Service\FormValidator\AddPostFormValidator;
 use App\Service\FormValidator\AddPostValidator;
 use App\View\View;
 use App\Model\Repository\CommentRepository;
@@ -19,7 +20,7 @@ final class PostAdminController
 
     }
 
-    public function  addPostAdminAction(Request $request): Response
+    public function  addAction(Request $request): Response
     {
         $errors = [];
         $data = $request->getAllRequest();
@@ -53,49 +54,51 @@ final class PostAdminController
             'errors' => $errors
         ]));
     }
-    public function modifyPostAdminAction(Request $request): Response
+    public function editAction(Request $request): Response
     {
-        $id = $request->getQuery('post');
-        $post = $this->postRepository->findOneBy(['id_post' => $id]);
+        $post = $this->postRepository->findOneBy(['id_post' => $request->getQuery('post')]);
         if ($request->getMethod() === 'POST') {
-            $postValidator = new AddPostValidator($request);
+            $postValidator = new AddPostFormValidator($request);
             if ($postValidator->isValid()) {
-                if($this->postRepository->modifyPost($request->getAllRequest(), $id)) {
-                    return new Response($this->view->render([
-                        'path'=>'backoffice',
-                        'template' => 'modifypost',
-                        'data' => ['post' => $post, 'user' => $this->session->get('user')],
-                        200
-                    ]));
-                }
+                $this->postRepository->modifyPost($request->getAllRequest(), $request->getQuery('post'), ['id_user' => $post->getUserId()]);
             }
         }
+
         return new Response($this->view->render([
             'path'=>'backoffice',
             'template' => 'modifypost',
             'data' => ['post' => $post, 'user' => $this->session->get('user')],
         ]));
-
-       
     }
 
-        public function listPostAdminAction()
-        {
-           
-            $posts = $this->postRepository->findAll();
-    
-            return new Response($this->view->render([
-                'path'=>'backoffice',
-                'template' => 'postlist',
-                'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
-            ]));
-            // ajouter post / modifier /supprimer
+    public function listAction(): Response
+    {
+        $posts = $this->postRepository->findAll();
+
+        return new Response($this->view->render([
+            'path'=>'backoffice',
+            'template' => 'postlist',
+            'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
+        ]));
+        // ajouter post / modifier /supprimer
+    }
+
+    public function deleteAction(Request $request): Response
+    {
+        $post = $this->postRepository->findOneBy(['id_post' => $request->getQuery('post')]);
+
+        if ($post !== null) {
+            if ($request->getMethod() === 'DELETE') {
+                $this->postRepository->delete($request->getQuery('id_post'), ['id_user' => $post->getUserId()]);
             }
-       
-                public function deletePostAdminAction()
-                {
-                   
-              
-                    
-                    }
+        }
+
+        $posts = $this->postRepository->findAll();
+
+        return new Response($this->view->render([
+            'path'=>'backoffice',
+            'template' => 'postlist',
+            'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
+        ]));
+    }
 }

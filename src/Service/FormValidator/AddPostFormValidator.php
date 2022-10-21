@@ -9,8 +9,9 @@ use App\Service\Http\Request;
 
 final class AddPostFormValidator
 {   
-    private $fields = [];
-    private $errors = [];
+    private array $fields = [];
+    private array $errors = [];
+    private array $success = [];
 
 
 
@@ -46,34 +47,32 @@ final class AddPostFormValidator
         return $this->errors;
     }
 
+    public function getSuccess() :array
+    {
+        return $this->success;
+    }
+
     public function isValid() :bool 
     {
-        var_dump ($this->fields);
-        $return = true;
         if ( !$this->validatedField($this->fields['title'])){
            // $this->session->addFlashes('error','Le titre n\'est pas valide');
             $this->errors[]='Le titre n\'est pas valide';
-            $return=false;
         }
         
         if ( !$this->validatedField($this->fields['chapo'])){
           //  $this->session->addFlashes('error','Le chapo n\'est pas valide');
             $this->errors[]='Le chapo n\'est pas valide';
-            $return=false;
         }
     
         if ( !$this->validatedField($this->fields['content'])){
             //$this->session->addFlashes('error','Le message n\'est pas valide');
             $this->errors[]='Le contenu n\'est pas valide';
-            $return=false;
-         
         }
-        
-        if (!empty($this->errors)) {
+        if (empty($this->errors)) {
             $this->success['send'] = 'Votre post est en attente de validation.';
-            $return=true;
+            return true;
         }
-      
-        return $return;
+
+        return false;
     }
 }

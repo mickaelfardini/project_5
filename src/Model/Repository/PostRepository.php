@@ -31,8 +31,8 @@ final class PostRepository
         $this->req->execute($criteria);
         var_dump($criteria);
         die;*/
-       
-    return $data === null ? $data : new Post((int)$data['id_post'], $data['title'], $data['chapo'],$data['content'],$data['created_at'],$data['update_at'],$data['id_user'],$data['username']);
+
+        return !$data ? null : new Post((int)$data['id_post'], $data['title'], $data['chapo'],$data['content'],$data['created_at'],$data['update_at'],$data['id_user'],$data['username']);
     }
 
     public function findAll(): ?array
@@ -72,24 +72,30 @@ final class PostRepository
 
     // Suppression d'un post
 
-    public function delete($id_post)
+    public function delete($id_post, $user): bool
     {
-        $req = $this->databaseConnection->prepare('DELETE FROM post WHERE id_post = ?');
-        $postDelete = $statement->execute(array($id_post));
+        $data = [
+            'id_post' => $id_post,
+            'id_user' => $user['id_user']
+        ];
 
-        return $postDelete;
+        $req = $this->databaseConnection->prepare('DELETE FROM post WHERE id_post = :id_post AND id_user = :id_user');
+
+        return $req->execute($data);
     }
 
     //Modifier un post 
 
-    public function modifyPost($data, $id) {
+    public function modifyPost($data, $id, $user): bool
+    {
         $modifyPost = [
             'title' => $data['title'],
             'chapo' => $data['chapo'],
             'content' => $data['content'],
-            'id_post' => $id
+            'id_post' => $id,
+            'id_user' => $user['id_user']
         ];
-        $req = $this->databaseConnection->prepare('UPDATE post SET title = :title, chapo = :chapo, update_at = NOW(), content = :content WHERE id_post = :id_post');
+        $req = $this->databaseConnection->prepare('UPDATE post SET title = :title, chapo = :chapo, update_at = NOW(), content = :content WHERE id_post = :id_post AND id_user = :id_user');
 
         return $req->execute($modifyPost);
     }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace  App\Controller\Frontoffice;
 
+use App\Service\FormValidator\AddPostFormValidator;
 use App\Service\Http\Session\Session;
 use App\View\View;
 use App\Service\Http\Response;
@@ -43,7 +44,6 @@ final class PostController
         return $response;
     }
 
-    #[Route('/posts', methods: ['GET'])]
     public function displayAllAction(Request $request): Response
     {
         if ($request->getMethod()=== 'POST') {
@@ -63,5 +63,74 @@ final class PostController
             'template' => 'posts',
             'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
         ]));
+    }
+
+    public function createAction(Request $request): Response
+    {
+        if ($request->getMethod() === 'POST') {
+            $postFormValidator = new AddPostFormValidator($request);
+            if ($postFormValidator->isValid()){
+                $postRepository = $this->postRepository->create($request->getAllRequest(), $this->session->get('user'));
+            }
+            $this->session->addFlashes('error', $postFormValidator->getErrors());
+        }
+
+        $posts = $this->postRepository->findAll();
+
+        return new Response($this->view->render([
+            'path'=>'frontoffice',
+            'template' => 'posts',
+            'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
+        ]));
+    }
+
+    public function editAction(CommentRepository $commentRepository, Request $request): Response
+    {
+        $post = $this->postRepository->findOneBy(['id_post' => $request->getQuery('id_post')]);
+        if ($post !== null) {
+            if ($request->getMethod() === 'POST') {
+                $postFormValidator = new AddPostFormValidator($request);
+                if ($postFormValidator->isValid()){
+                    $this->postRepository->modifyPost($request->getAllRequest(), $request->getQuery('id_post'), $this->session->get('user'));
+                }
+                $this->session->addFlashes('error', $postFormValidator->getErrors());
+            }
+
+            $comments = $commentRepository->findBy(['id_post' => $request->getQuery('id_post')]);
+
+            return new Response($this->view->render(
+                [
+                    'path'=>'frontoffice',
+                    'template' => 'post',
+                    'data' => [
+                        'post' => $post,
+                        'comments' => $comments,
+                        'user' => $this->session->get('user')
+                    ],
+                ],
+            ));
+        }
+
+        return new Response('<h1>faire une redirection vers la page d\'erreur, ce post n\'existe pas</h1><a href="index.php?action=posts">Liste des posts</a><br>', 404);
+    }
+
+    public function deleteAction(Request $request): Response
+    {
+        $post = $this->postRepository->findOneBy(['id_post' => $request->getQuery('id_post')]);
+        if ($post !== null) {
+            if ($request->getMethod() === 'DELETE') {
+                $this->postRepository->delete($request->getQuery('id_post'), $this->session->get('user'));
+            }
+
+            $posts = $this->postRepository->findAll();
+
+            return new Response($this->view->render([
+                'path'=>'frontoffice',
+                'template' => 'posts',
+                'data' => ['posts' => $posts, 'user' => $this->session->get('user')],
+            ]));
+        }
+
+        return new Response('<h1>faire une redirection vers la page d\'erreur, ce post n\'existe pas</h1><a href="index.php?action=posts">Liste des posts</a><br>', 404);
     }
 }

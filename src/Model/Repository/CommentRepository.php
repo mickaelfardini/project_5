@@ -59,13 +59,16 @@ final class CommentRepository
 
     //Ajout d'un commentaire dans le front
 
-    public function create()
+    public function create(array $request, array $user): bool
     {
-        $createComment = [];
-        $statement = $this->databaseConnection->prepare('INSERT INTO comment ( content, id_user, id_post , created_at) VALUES ("content","id_user","created_at",NOW())');
-        $statement->execute();
+        $data = [
+            'content' => $request['content'],
+            'id_post' => $request['id_post'],
+            'id_user' => $user['id_user']
+        ];
+        $statement = $this->databaseConnection->prepare('INSERT INTO comment ( content, id_user, id_post , created_at) VALUES (:content,:id_user, :id_post, NOW())');
 
-        return $createComment ;
+        return $statement->execute($data);
     }
 
     // Suppression d'un commentaire
@@ -73,6 +76,12 @@ final class CommentRepository
     public function delete($id_comment): bool
     {
         $statement = $this->databaseConnection->prepare('DELETE FROM comment WHERE id_comment = ?');
+        return $statement->execute(array($id_comment));
+    }
+
+    public function validate($id_comment): bool
+    {
+        $statement = $this->databaseConnection->prepare('UPDATE comment SET valide = true WHERE id_comment = ?');
         return $statement->execute(array($id_comment));
     }
 
